@@ -1,0 +1,39 @@
+---
+title: "gambero2025"
+author: "glp"
+date: 2025-06-25
+format: pdf
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+	# -------------------------------------
+	# Project:
+	# Date: `r paste(Sys.Date())`
+	# Author: G. La Porta
+	# Notes:
+
+	# dir.create('input', showWarnings = FALSE)
+	# dir.create('output', showWarnings = FALSE)
+	# dir.create('plots', showWarnings = FALSE)
+	# dir.create('R-script', showWarnings = FALSE)
+	library(pacman)
+	p_load(tidyverse,stargazer,skimr,janitor,
+     	ggpubr,rstatix,openxlsx, patchwork)
+	# -------------------------------------
+```
+
+## Gambero 2025
+
+Serie storica triennale su *Procambarus clarkii* del lago Trasimeno.
+Anni di riferimento: luglio 2018 - maggio 2021
+
+```{r}
+#import data
+# pc <- read.xlsx('input/Gamberi morfometria 3 anni_.xlsx')
+# glimpse(pc)
+# 
+# unique(pc$data)
+```
