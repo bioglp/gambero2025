@@ -20,20 +20,27 @@ editor_options:
 	# dir.create('plots', showWarnings = FALSE)
 	# dir.create('R-script', showWarnings = FALSE)
 	library(pacman)
-	p_load(tidyverse,stargazer,skimr,janitor,
+	p_load(tidyverse,stargazer,skimr,janitor,lubridate,
      	ggpubr,rstatix,openxlsx, patchwork)
 	# -------------------------------------
 ```
 
 ## Gambero 2025
 
-Serie storica triennale su *Procambarus clarkii* del lago Trasimeno.
-Anni di riferimento: luglio 2018 - maggio 2021
+Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: luglio 2018 - maggio 2021
 
 ```{r}
-#import data
-# pc <- read.xlsx('input/Gamberi morfometria 3 anni_.xlsx')
-# glimpse(pc)
-# 
-# unique(pc$data)
+# import data
+pc <- read.xlsx('input/Gamberi morfometria 3 anni_.xlsx',
+                detectDates = T)
+glimpse(pc)
+
+# add month and year
+pc$month <- month(pc$data)
+pc$year <- year(pc$data)
 ```
+
+```{r}
+
+```
+
