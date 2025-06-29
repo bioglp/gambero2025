@@ -3,8 +3,10 @@ title: "Elaborazioni Gambero2025"
 author: "Gianandrea LP"
 date: 2025-06-25
 format: html
+theme: journal
 editor: visual
-editor_options: 
+subtitle: "[journal](https://bioglp.github.io/gambero2025)"
+editor_options:
   chunk_output_type: console
 ---
 
@@ -185,4 +187,3 @@ pc.f %>%
 ```{r}
 
 ```
-
