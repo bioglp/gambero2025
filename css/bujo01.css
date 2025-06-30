@@ -3,6 +3,7 @@
 html, body {
   font-family: 'Caveat', cursive;
   font-size: 1.3em;
+  font-weight: 400;
   color: #333;
   line-height: 1.6;
   padding: 2em;
@@ -63,6 +64,9 @@ li {
 /* Livello 1: bullet grande e grassetto */
 ul > li {
   font-weight: 600;
+  strong{
+    color: #347d68;
+  }
 }
 
 ul > li::before {
@@ -78,6 +82,9 @@ ul > li::before {
 ul > li > ul > li {
   font-weight: 400;
   padding-left: 1.6em;  /* Ridotta la distanza testo-bullet */
+  strong{
+  color: #ff9001;
+  }
 }
 
 ul > li > ul > li::before {
@@ -104,6 +111,15 @@ ul > li > ul > li > ul > li::before {
   line-height: 1.5;
 }
 
-h1, em, i {
-  color: #006400;
+h1 {
+  color: #347d78;
+  font-weight: 900;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+em, i {
+  color: #347d68;
 }

@@ -11,7 +11,7 @@
 
 
 
-<title>index</title>
+<title>index.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -269,6 +269,7 @@ src: url(data:font/ttf;base64,AAEAAAAQAQAABAAAR0RFRqTxpeIAAAQ0AAACMEdQT1Plt7u2AA
 html, body {
 font-family: 'Caveat', cursive;
 font-size: 1.3em;
+font-weight: 400;
 color: #333;
 line-height: 1.6;
 padding: 2em;
@@ -320,6 +321,9 @@ margin-bottom: 0.4em;
 
 ul > li {
 font-weight: 600;
+strong{
+color: #347d68;
+}
 }
 ul > li::before {
 content: "•";
@@ -333,6 +337,9 @@ line-height: 0.7;
 ul > li > ul > li {
 font-weight: 400;
 padding-left: 1.6em; 
+strong{
+color: #ff9001;
+}
 }
 ul > li > ul > li::before {
 content: "•";
@@ -355,9 +362,17 @@ font-size: 1em;
 color: #aaa;
 line-height: 1.5;
 }
-h1, em, i {
-color: #006400;
-}</style>
+h1 {
+color: #347d78;
+font-weight: 900;
+}
+h2 {
+font-weight: 700;
+}
+em, i {
+color: #347d68;
+}
+</style>
 
 
 
@@ -462,29 +477,50 @@ display: none;
 <h1>Progetto Gambero 2025</h1>
 <p>Serie storica triennale su <em>Procambarus clarkii</em> del lago
 Trasimeno. Anni di riferimento: luglio 2018 - maggio 2021</p>
-<ul>
-<li><strong>Elaborazioni</strong>
+<div id="output-elaborazioni" class="section level2">
+<h2>Output elaborazioni</h2>
 <ul>
 <li><a href="https://bioglp.github.io/gambero2025/000.gambero2025.html">file
 online con codice R</a></li>
 <li>file PDF</li>
-</ul></li>
-<li><strong>Programmazione attività</strong>
+</ul>
+</div>
+<div id="daily-log" class="section level2">
+<h2>Daily log</h2>
 <ul>
-<li><strong>2025-06-29</strong> richiesta revisione dati</li>
-<li><strong>2025-06-28</strong> riscrittura codici R</li>
+<li><strong>2025-06-30</strong>
+<ul>
+<li><label><input type="checkbox"></input>condivisione risultati primo
+round</label></li>
+<li>completare riscrittura codice</li>
+<li>invio file corretti 2</li>
+<li>scaricare file idrometro da SIR Umbria</li>
+</ul></li>
+<li><strong>2025-06-29</strong>
+<ul>
+<li>richiesta revisione dati</li>
+</ul></li>
+<li><strong>2025-06-28</strong>
+<ul>
+<li><del>riscrittura codici R (parziale)</del></li>
+</ul></li>
 <li><strong>2025-06-26</strong>
 <ul>
 <li>invio file corretti</li>
 </ul></li>
 <li><strong>2025–06–25</strong>
 <ul>
-<li>invio dati Barbara (rivedere date)</li>
-<li>recupero codici paper Biology 2021</li>
-<li>incontro online su MSTeams</li>
+<li>invio dati Barbara (rivedere formato date)</li>
+<li><del>recupero codici paper Biology 2021</del></li>
+<li><strong>incontro online su MSTeams</strong>
+<ul>
+<li>banca dati gambero 3 anni</li>
+<li>cfr. elaborazione Biology 2021</li>
+<li>download file SIR (idrometro)</li>
 </ul></li>
 </ul></li>
 </ul>
+</div>
 </div>
 
 

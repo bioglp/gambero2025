@@ -1,0 +1,35 @@
+---
+output: 
+  html_document: 
+    css: css/bujo01.css
+---
+
+# Progetto Gambero 2025
+
+Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: luglio 2018 - maggio 2021
+
+## Output elaborazioni
+
+-   [file online con codice R](https://bioglp.github.io/gambero2025/000.gambero2025.html)
+-   file PDF
+
+## Daily log
+    
+-   **2025-06-30**
+    -   [ ] condivisione risultati primo round
+    -   completare riscrittura codice
+    -   invio file corretti 2
+    -   scaricare file idrometro da SIR Umbria
+-   **2025-06-29**
+    -   richiesta revisione dati
+-   **2025-06-28**
+    -   ~~riscrittura codici R (parziale)~~
+-   **2025-06-26**
+    -   invio file corretti
+-   **2025–06–25**
+    -   invio dati Barbara (rivedere formato date)
+    -   ~~recupero codici paper Biology 2021~~
+    -   **incontro online su MSTeams**
+        -   banca dati gambero 3 anni
+        -   cfr. elaborazione Biology 2021
+        -   download file SIR (idrometro)
