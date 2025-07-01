@@ -1,8 +1,8 @@
 ---
 output:
-  pdf_document: default
   html_document:
     css: css/bujo01.css
+  pdf_document: default
 ---
 
 # Progetto Gambero 2025
