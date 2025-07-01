@@ -90,16 +90,11 @@ pc <- pc %>%
 ## Sex ratio
 
 ```{r sex}
-clark.sex <- pc %>% 
-    group_by(date,sesso) %>% 
-    summarise(n=n()) %>% 
-    mutate(tot=cumsum(n))
-clark.sexratioF <- clark.sex %>% 
-    filter(sesso=='F')
-clark.sexratioM <- clark.sex %>% 
-    filter(sesso=='M')
-sexratio <- cbind(data.frame(ratio=round(clark.sexratioM$n/clark.sexratioF$n,1)),
-                  distinct(pc,date))
+sexratio <- pc %>% 
+  count(date,sesso) %>% 
+  pivot_wider(names_from = sesso,
+              values_from = n) %>% 
+  mutate(ratio=round(M/F,1))
 ```
 
 ```{r sex ratio, fig.height=9, fig.width=13}
