@@ -1,6 +1,7 @@
 ---
-output: 
-  html_document: 
+output:
+  pdf_document: default
+  html_document:
     css: css/bujo01.css
 ---
 
@@ -10,7 +11,7 @@ Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di rif
 
 ## Output elaborazioni
 
--   [file online con codice R](https://bioglp.github.io/gambero2025/000.gambero2025.html)
+-   [file online con codice R](https://bioglp.github.io/gambero2025/R-script/000.gambero2025.html)
 -   file PDF
 
 ## Daily log
