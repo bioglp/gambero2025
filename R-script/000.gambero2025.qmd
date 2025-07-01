@@ -147,9 +147,9 @@ pc.f <- pc %>%
 
 pc.f %>% 
     count(date,gonadBin) %>% 
-    ggplot(aes(x=date,y=n, group=gonadBin,col=gonadBin)) +
+    ggplot(aes(x=date,y=n, col=gonadBin)) +
     geom_line(alpha=0.9, lwd=1.5) +
-    geom_point(size=2) +
+    geom_point(size=4) +
     ggtitle('Gonads') + ylab('numbers')+ xlab('')+
     scale_color_manual(values = c('#f78ae0','#f71ae8'))+
     theme(legend.position = 'none')
