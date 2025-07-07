@@ -15,6 +15,9 @@ Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di rif
 -   file PDF
 
 ## Daily log
+-   **2025-07-07**
+    -   [x] condivisione risultati secondo round
+    -   invio nuovo file corretto xlsx
 -   **2025-07-01**
     -   [x] condivisione risultati primo round
     -   completare riscrittura codice

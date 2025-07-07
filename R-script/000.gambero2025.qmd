@@ -1,7 +1,7 @@
 ---
 title: "Elaborazioni Gambero2025"
 author: "Gianandrea LP"
-date: 2025-07-01
+date: 2025-07-07
 format: html
 theme: journal
 editor: visual
@@ -50,7 +50,7 @@ glimpse(pc)
 pc %>% 
     select(where(is.numeric),sesso,-n) %>% 
     group_by(sesso) %>% 
-    get_summary_stats(type = 'five_number') %>% 
+    get_summary_stats(type = 'common') %>% 
     kable(digits = 2)
 ```
 
@@ -197,7 +197,7 @@ pc.m %>%
     pivot_wider(id_cols = date, 
                 values_from = perc, 
                 names_from = SA) %>% 
-    kable()
+    kable(digits = 2)
 ```
 
 ```{r}
