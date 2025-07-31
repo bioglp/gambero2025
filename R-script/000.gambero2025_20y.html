@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gianandrea LP">
+<meta name="dcterms.date" content="2025-07-28">
+
+<title>Elaborazioni Gambero2025 - serie 2000-2021</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="000.gambero2025_20y_files/libs/clipboard/clipboard.min.js"></script>
+<script src="000.gambero2025_20y_files/libs/quarto-html/quarto.js"></script>
+<script src="000.gambero2025_20y_files/libs/quarto-html/popper.min.js"></script>
+<script src="000.gambero2025_20y_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="000.gambero2025_20y_files/libs/quarto-html/anchor.min.js"></script>
+<link href="000.gambero2025_20y_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="000.gambero2025_20y_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="000.gambero2025_20y_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="000.gambero2025_20y_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="000.gambero2025_20y_files/libs/bootstrap/bootstrap-2ca845081218289dd5ebe290c54fff29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Elaborazioni Gambero2025 - serie 2000-2021</h1>
+<p class="subtitle lead"><a href="https://bioglp.github.io/gambero2025">journal</a></p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gianandrea LP </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="gambero-2025-2000---2021" class="level2">
+<h2 class="anchored" data-anchor-id="gambero-2025-2000---2021">Gambero 2025 (2000 - 2021)</h2>
+<p>Serie storica pluriennale su <em>Procambarus clarkii</em> del lago Trasimeno. Anni di riferimento: 2000 - 2021</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">here</span>(<span class="st">"input/Gamberi morfometria 2000-2021.xlsx"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">detectDates =</span> T)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 8,059
+Columns: 13
+$ data            &lt;date&gt; 2008-03-01, 2008-03-01, 2008-04-01, 2008-07-01, 2008-…
+$ n               &lt;dbl&gt; 4, 32, 23, 16, 25, 45, 4, 18, 35, 5, 33, 24, 8, 1, 6, …
+$ sesso           &lt;chr&gt; "M", "F", "F", "F", "M", "M", "M", "F", "F", "M", "F",…
+$ lt.carapace     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 81.55, 73.81, 72.72, 72.00, 71…
+$ peso.tot        &lt;dbl&gt; 30.8, 23.8, 17.8, 37.1, 18.0, 24.7, 35.4, 59.9, 68.4, …
+$ peso.addome     &lt;dbl&gt; 7.8, 6.6, 6.4, 9.4, 5.2, 5.8, 8.2, 12.2, 9.4, 6.0, 15.…
+$ peso.epato      &lt;dbl&gt; NA, 1.619, 1.266, 2.539, 1.256, 1.527, 1.900, 2.800, 4…
+$ Hiw             &lt;dbl&gt; NA, 6.8025210, 7.1123596, 6.8436658, 6.9777778, 6.1821…
+$ TwB             &lt;dbl&gt; 25.32468, 27.73109, 35.95506, 25.33693, 28.88889, 23.4…
+$ SA              &lt;chr&gt; "SI", NA, NA, NA, "NO", "SI", "SI", NA, NA, "SI", NA, …
+$ muta            &lt;chr&gt; "NO", "NO", "SI", "NO", "SI", "SI", "NO", "NO", "NO", …
+$ maturità.gonadi &lt;chr&gt; NA, "IMMATURE", "IMMATURE", "INIZIO MATURAZIONE", NA, …
+$ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1.700, 0.409, …</code></pre>
+</div>
+</div>
+</section>
+<section id="statistiche-descrittive" class="level2">
+<h2 class="anchored" data-anchor-id="statistiche-descrittive">Statistiche descrittive</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">where</span>(is.numeric),sesso,<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sesso) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_summary_stats</span>(<span class="at">type =</span> <span class="st">'common'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 15%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">sesso</th>
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">median</th>
+<th style="text-align: right;">iqr</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: right;">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">lt.carapace</td>
+<td style="text-align: right;">2691</td>
+<td style="text-align: right;">16.16</td>
+<td style="text-align: right;">73.81</td>
+<td style="text-align: right;">49.95</td>
+<td style="text-align: right;">9.62</td>
+<td style="text-align: right;">49.94</td>
+<td style="text-align: right;">7.12</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">peso.tot</td>
+<td style="text-align: right;">3280</td>
+<td style="text-align: right;">1.10</td>
+<td style="text-align: right;">74.60</td>
+<td style="text-align: right;">22.90</td>
+<td style="text-align: right;">15.40</td>
+<td style="text-align: right;">24.57</td>
+<td style="text-align: right;">11.53</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">peso.addome</td>
+<td style="text-align: right;">3296</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">39.00</td>
+<td style="text-align: right;">6.30</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">6.66</td>
+<td style="text-align: right;">2.72</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">peso.epato</td>
+<td style="text-align: right;">2646</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">5.90</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">1.03</td>
+<td style="text-align: right;">1.54</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Hiw</td>
+<td style="text-align: right;">2613</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">74.33</td>
+<td style="text-align: right;">6.49</td>
+<td style="text-align: right;">3.11</td>
+<td style="text-align: right;">6.44</td>
+<td style="text-align: right;">2.80</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">TwB</td>
+<td style="text-align: right;">3268</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">382.35</td>
+<td style="text-align: right;">27.65</td>
+<td style="text-align: right;">5.41</td>
+<td style="text-align: right;">28.51</td>
+<td style="text-align: right;">9.41</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">peso.gonadi</td>
+<td style="text-align: right;">1568</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">14611.00</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">1.72</td>
+<td style="text-align: right;">105.16</td>
+<td style="text-align: right;">585.44</td>
+<td style="text-align: right;">14.79</td>
+<td style="text-align: right;">29.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">lt.carapace</td>
+<td style="text-align: right;">4193</td>
+<td style="text-align: right;">19.31</td>
+<td style="text-align: right;">81.55</td>
+<td style="text-align: right;">47.36</td>
+<td style="text-align: right;">8.04</td>
+<td style="text-align: right;">47.49</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">peso.tot</td>
+<td style="text-align: right;">4640</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">410.00</td>
+<td style="text-align: right;">21.30</td>
+<td style="text-align: right;">12.40</td>
+<td style="text-align: right;">22.96</td>
+<td style="text-align: right;">11.44</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">peso.addome</td>
+<td style="text-align: right;">4720</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">307.00</td>
+<td style="text-align: right;">5.30</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">5.60</td>
+<td style="text-align: right;">4.81</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">peso.epato</td>
+<td style="text-align: right;">4152</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">1549.00</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">2.23</td>
+<td style="text-align: right;">36.98</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">1.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Hiw</td>
+<td style="text-align: right;">4059</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">6488.48</td>
+<td style="text-align: right;">5.51</td>
+<td style="text-align: right;">2.16</td>
+<td style="text-align: right;">9.37</td>
+<td style="text-align: right;">146.38</td>
+<td style="text-align: right;">2.30</td>
+<td style="text-align: right;">4.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">TwB</td>
+<td style="text-align: right;">4623</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2325.76</td>
+<td style="text-align: right;">25.00</td>
+<td style="text-align: right;">5.28</td>
+<td style="text-align: right;">26.03</td>
+<td style="text-align: right;">35.52</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">1.02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">where</span>(is.numeric),sesso) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(lt.carapace<span class="sc">:</span>peso.gonadi, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">names_to =</span> <span class="st">'var'</span>, <span class="at">values_to =</span> <span class="st">'value'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(value<span class="sc">&lt;</span><span class="dv">800</span>) <span class="sc">%&gt;%</span> <span class="co"># &lt;- per eliminare outliers</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(var,value))<span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">col=</span>sesso),<span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_sqrt</span>()<span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">group =</span> sesso),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">fun =</span> mean,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">geom =</span> <span class="st">"point"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape =</span> <span class="dv">18</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">col=</span><span class="st">'black'</span>, <span class="at">alpha=</span><span class="fl">0.5</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.3</span>) <span class="co"># per separare se necessario</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>sesso)<span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="dv">0</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="possibili-casi-da-correggere" class="level1">
+<h1>Possibili casi da correggere</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Hiw<span class="sc">&gt;</span><span class="dv">80</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        data  n sesso lt.carapace   peso.tot peso.addome peso.epato       Hiw
+1 2009-02-01 36     M       62.76 54.5000000        19.5   1549.000 2842.2018
+2 2008-11-01 61     M       49.12  0.8756944         5.6      1.481  169.1229
+3 2009-01-01 65     M       47.30 18.8000000         4.7   1143.000 6079.7872
+4 2009-01-01  4     M       40.06 21.7000000         4.5   1408.000 6488.4793
+        TwB SA muta maturità.gonadi peso.gonadi
+1  35.77982 SI   NO            &lt;NA&gt;          NA
+2 639.49247 NO   NO            &lt;NA&gt;          NA
+3  25.00000 SI   NO            &lt;NA&gt;          NA
+4  20.73733 SI   NO            &lt;NA&gt;          NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TwB<span class="sc">&gt;</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        data  n sesso lt.carapace   peso.tot peso.addome peso.epato        Hiw
+1 2009-02-01 34     F       56.58  4.2000000         9.8      3.122  74.333333
+2 2007-08-01 34     F       49.49  2.8000000         7.3      2.035  72.678571
+3 2008-11-01 61     M       49.12  0.8756944         5.6      1.481 169.122918
+4 2008-05-01 15     M       49.03  3.2000000         6.2      0.758  23.687500
+5 2008-08-01 50     M       41.39 13.2000000       307.0      0.803   6.083333
+6 2007-06-01 24     F       40.00 10.2000000        39.0      0.660   6.470588
+7 2008-11-01  4     M       38.25 13.7000000        33.2      0.723   5.277372
+        TwB   SA muta maturità.gonadi peso.gonadi
+1  233.3333 &lt;NA&gt;   NO        IMMATURE          NA
+2  260.7143 &lt;NA&gt;   NO          MATURE       0.493
+3  639.4925   NO   NO            &lt;NA&gt;          NA
+4  193.7500   SI   NO            &lt;NA&gt;          NA
+5 2325.7576   SI   NO            &lt;NA&gt;          NA
+6  382.3529 &lt;NA&gt;   SI        IMMATURE          NA
+7  242.3358   SI   NO            &lt;NA&gt;          NA</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add month and year</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">month</span>(data),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">year=</span><span class="fu">year</span>(data),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">date=</span><span class="fu">floor_date</span>(data, <span class="at">unit =</span> <span class="st">'month'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="sex-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="sex-ratio">Sex ratio</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sexratio <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(date,sesso) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> sesso,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> n) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio=</span><span class="fu">round</span>(M<span class="sc">/</span>F,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(sesso,date) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,perc,<span class="at">group =</span> sesso))<span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'identity'</span>, <span class="at">alpha=</span><span class="fl">0.7</span>, <span class="fu">aes</span>(<span class="at">fill=</span>sesso))<span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())<span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span><span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_label</span>(<span class="at">data=</span>sexratio, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span><span class="fl">1.1</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label=</span><span class="fu">paste0</span>(ratio,<span class="st">':1'</span>)),</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">angle=</span><span class="dv">90</span>)<span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/sex%20ratio-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mute" class="level2">
+<h2 class="anchored" data-anchor-id="mute">Mute</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mute <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(muta<span class="sc">==</span><span class="st">'SI'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(sesso,date) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>mute <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span><span class="fu">round</span>(perc<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span><span class="sc">-</span>n,<span class="at">names_from =</span> sesso,<span class="at">values_from =</span> perc) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">date</th>
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2007-06-01</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-07-01</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-08-01</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-09-01</td>
+<td style="text-align: right;">1.09</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-10-01</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">2.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-11-01</td>
+<td style="text-align: right;">1.88</td>
+<td style="text-align: right;">3.44</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-01-01</td>
+<td style="text-align: right;">1.88</td>
+<td style="text-align: right;">2.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-02-01</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-03-01</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-04-01</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">1.33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-05-01</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-06-01</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-07-01</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-08-01</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-09-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-10-01</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-11-01</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">2.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-12-01</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">3.28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-01-01</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">2.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-02-01</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">2.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-03-01</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">2.42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-04-01</td>
+<td style="text-align: right;">3.59</td>
+<td style="text-align: right;">2.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-05-01</td>
+<td style="text-align: right;">1.88</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-06-01</td>
+<td style="text-align: right;">1.09</td>
+<td style="text-align: right;">0.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-07-01</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-07-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-10-01</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">1.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-11-01</td>
+<td style="text-align: right;">2.81</td>
+<td style="text-align: right;">2.58</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-12-01</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">1.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-02-01</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">2.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-03-01</td>
+<td style="text-align: right;">1.41</td>
+<td style="text-align: right;">2.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-05-01</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">3.20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-06-01</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-07-01</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-09-01</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-10-01</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-11-01</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-12-01</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-01-01</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">1.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-02-01</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">1.48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-06-01</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">1.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-07-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-09-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-10-01</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-11-01</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-12-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">1.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-02-01</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-03-01</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-04-01</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-05-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-08-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.23</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mute <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,perc,<span class="at">group =</span> sesso))<span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'identity'</span>, <span class="at">alpha=</span><span class="fl">0.7</span>, <span class="fu">aes</span>(<span class="at">fill=</span>sesso))<span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())<span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span><span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/mute-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="gonadi" class="level2">
+<h2 class="anchored" data-anchor-id="gonadi">Gonadi</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># corregge i nomi</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(maturità<span class="at">.gonadi=</span><span class="fu">str_trim</span>(maturità.gonadi))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># crea una nuova variabile con stadio gonadi: 0, 1</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>pc.f <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sesso<span class="sc">==</span><span class="st">'F'</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>           <span class="sc">!</span><span class="fu">is.na</span>(maturità.gonadi)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gonadBin=</span><span class="fu">ifelse</span>(maturità.gonadi<span class="sc">==</span><span class="st">'MATURE'</span>,<span class="st">'1'</span>,<span class="st">'0'</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,gonadBin) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>n, <span class="at">col=</span>gonadBin)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">lwd=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'Gonads'</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'numbers'</span>)<span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'#f78ae0'</span>,<span class="st">'#f71ae8'</span>))<span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/gonadi-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,gonadBin) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span><span class="fu">round</span>(n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> date, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> perc, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_from =</span> gonadBin) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">date</th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2000-10-01</td>
+<td style="text-align: right;">30.30</td>
+<td style="text-align: right;">69.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-11-01</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-12-01</td>
+<td style="text-align: right;">90.91</td>
+<td style="text-align: right;">9.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-01-01</td>
+<td style="text-align: right;">97.53</td>
+<td style="text-align: right;">2.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2001-04-01</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-05-01</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2001-06-01</td>
+<td style="text-align: right;">86.89</td>
+<td style="text-align: right;">13.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-07-01</td>
+<td style="text-align: right;">91.38</td>
+<td style="text-align: right;">8.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2001-08-01</td>
+<td style="text-align: right;">28.57</td>
+<td style="text-align: right;">71.43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-09-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">100.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2001-10-01</td>
+<td style="text-align: right;">4.84</td>
+<td style="text-align: right;">95.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2001-11-01</td>
+<td style="text-align: right;">75.47</td>
+<td style="text-align: right;">24.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-06-01</td>
+<td style="text-align: right;">67.31</td>
+<td style="text-align: right;">32.69</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-07-01</td>
+<td style="text-align: right;">83.10</td>
+<td style="text-align: right;">16.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-08-01</td>
+<td style="text-align: right;">18.75</td>
+<td style="text-align: right;">81.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-09-01</td>
+<td style="text-align: right;">27.71</td>
+<td style="text-align: right;">72.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-10-01</td>
+<td style="text-align: right;">58.73</td>
+<td style="text-align: right;">41.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-11-01</td>
+<td style="text-align: right;">85.33</td>
+<td style="text-align: right;">14.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-01-01</td>
+<td style="text-align: right;">89.23</td>
+<td style="text-align: right;">10.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-02-01</td>
+<td style="text-align: right;">89.74</td>
+<td style="text-align: right;">10.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-03-01</td>
+<td style="text-align: right;">74.19</td>
+<td style="text-align: right;">25.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-04-01</td>
+<td style="text-align: right;">66.67</td>
+<td style="text-align: right;">33.33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-05-01</td>
+<td style="text-align: right;">87.88</td>
+<td style="text-align: right;">12.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-06-01</td>
+<td style="text-align: right;">90.91</td>
+<td style="text-align: right;">9.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-07-01</td>
+<td style="text-align: right;">84.85</td>
+<td style="text-align: right;">15.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-08-01</td>
+<td style="text-align: right;">3.45</td>
+<td style="text-align: right;">96.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-09-01</td>
+<td style="text-align: right;">2.47</td>
+<td style="text-align: right;">97.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-10-01</td>
+<td style="text-align: right;">6.76</td>
+<td style="text-align: right;">93.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-11-01</td>
+<td style="text-align: right;">66.67</td>
+<td style="text-align: right;">33.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-12-01</td>
+<td style="text-align: right;">53.33</td>
+<td style="text-align: right;">46.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-01-01</td>
+<td style="text-align: right;">71.88</td>
+<td style="text-align: right;">28.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-02-01</td>
+<td style="text-align: right;">65.08</td>
+<td style="text-align: right;">34.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-03-01</td>
+<td style="text-align: right;">87.72</td>
+<td style="text-align: right;">12.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-04-01</td>
+<td style="text-align: right;">92.06</td>
+<td style="text-align: right;">7.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-05-01</td>
+<td style="text-align: right;">100.00</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-06-01</td>
+<td style="text-align: right;">92.68</td>
+<td style="text-align: right;">7.32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-07-01</td>
+<td style="text-align: right;">73.08</td>
+<td style="text-align: right;">26.92</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-07-01</td>
+<td style="text-align: right;">51.85</td>
+<td style="text-align: right;">48.15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-09-01</td>
+<td style="text-align: right;">17.14</td>
+<td style="text-align: right;">82.86</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-10-01</td>
+<td style="text-align: right;">45.76</td>
+<td style="text-align: right;">54.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-11-01</td>
+<td style="text-align: right;">82.43</td>
+<td style="text-align: right;">17.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-12-01</td>
+<td style="text-align: right;">84.62</td>
+<td style="text-align: right;">15.38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-02-01</td>
+<td style="text-align: right;">69.05</td>
+<td style="text-align: right;">30.95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-03-01</td>
+<td style="text-align: right;">86.54</td>
+<td style="text-align: right;">13.46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-05-01</td>
+<td style="text-align: right;">79.41</td>
+<td style="text-align: right;">20.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-06-01</td>
+<td style="text-align: right;">80.95</td>
+<td style="text-align: right;">19.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-07-01</td>
+<td style="text-align: right;">97.87</td>
+<td style="text-align: right;">2.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-09-01</td>
+<td style="text-align: right;">30.43</td>
+<td style="text-align: right;">69.57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-10-01</td>
+<td style="text-align: right;">78.72</td>
+<td style="text-align: right;">21.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-11-01</td>
+<td style="text-align: right;">75.00</td>
+<td style="text-align: right;">25.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-12-01</td>
+<td style="text-align: right;">96.15</td>
+<td style="text-align: right;">3.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-01-01</td>
+<td style="text-align: right;">86.84</td>
+<td style="text-align: right;">13.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-02-01</td>
+<td style="text-align: right;">87.10</td>
+<td style="text-align: right;">12.90</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-06-01</td>
+<td style="text-align: right;">80.25</td>
+<td style="text-align: right;">19.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-07-01</td>
+<td style="text-align: right;">78.95</td>
+<td style="text-align: right;">21.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-08-01</td>
+<td style="text-align: right;">43.18</td>
+<td style="text-align: right;">56.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-09-01</td>
+<td style="text-align: right;">9.09</td>
+<td style="text-align: right;">90.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-10-01</td>
+<td style="text-align: right;">25.00</td>
+<td style="text-align: right;">75.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-11-01</td>
+<td style="text-align: right;">48.08</td>
+<td style="text-align: right;">51.92</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-12-01</td>
+<td style="text-align: right;">76.00</td>
+<td style="text-align: right;">24.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: right;">56.41</td>
+<td style="text-align: right;">43.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-02-01</td>
+<td style="text-align: right;">72.73</td>
+<td style="text-align: right;">27.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-03-01</td>
+<td style="text-align: right;">77.14</td>
+<td style="text-align: right;">22.86</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-04-01</td>
+<td style="text-align: right;">77.50</td>
+<td style="text-align: right;">22.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-05-01</td>
+<td style="text-align: right;">83.33</td>
+<td style="text-align: right;">16.67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,gonadBin) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,perc,<span class="at">group =</span> gonadBin, <span class="at">fill=</span>gonadBin))<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'identity'</span>, <span class="at">alpha=</span><span class="fl">0.9</span>)<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">''</span>,<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())<span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="st">''</span>,<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'Immature'</span>,<span class="st">'Mature'</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'#f78ae0'</span>,<span class="st">'#f71ae8'</span>))<span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span><span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/pgonadi-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="attività-maschi" class="level2">
+<h2 class="anchored" data-anchor-id="attività-maschi">Attività maschi</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(pc<span class="sc">$</span>SA) <span class="co">#!malefici spazi!!!!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SI"  NA    "NO"  "SI " " "  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">SA=</span><span class="fu">str_trim</span>(SA))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>pc.m <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sesso<span class="sc">==</span><span class="st">'M'</span>, <span class="sc">!</span><span class="fu">is.na</span>(SA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date,SA) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,SA) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">perc=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(pc.m<span class="sc">$</span>SA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "NO" "SI"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pc.m <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> date, </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_from =</span> perc, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_from =</span> SA) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">date</th>
+<th style="text-align: right;">NO</th>
+<th style="text-align: right;">SI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2007-06-01</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-07-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-08-01</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-09-01</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2007-10-01</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2007-11-01</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-01-01</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-02-01</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-03-01</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.90</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-04-01</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-05-01</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-06-01</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-07-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-08-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-09-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-10-01</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2008-11-01</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2008-12-01</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-01-01</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.60</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-02-01</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-03-01</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-04-01</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-05-01</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2009-06-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-07-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-07-01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-09-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-10-01</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2018-11-01</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018-12-01</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-02-01</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-03-01</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-05-01</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">0.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-06-01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-07-01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-09-01</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-10-01</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2019-11-01</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019-12-01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-01-01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-02-01</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-06-01</td>
+<td style="text-align: right;">0.19</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-07-01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-08-01</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-09-01</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-10-01</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2020-11-01</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020-12-01</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-02-01</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-03-01</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-04-01</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2021-05-01</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pc.m <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,perc, <span class="at">fill=</span>SA))<span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="st">''</span>,<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'Immature'</span>,<span class="st">'Mature'</span>), </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values=</span><span class="fu">c</span>(<span class="st">"#A6E6E7"</span>,<span class="st">"#33C6CA"</span>))<span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">''</span>,<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>())<span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span><span class="st">''</span>)<span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'top'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="twb-e-hiw" class="level2">
+<h2 class="anchored" data-anchor-id="twb-e-hiw">Tw/B e Hiw</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse(pc)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pc.twb <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date,sesso) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">TwB=</span><span class="fu">mean</span>(TwB,<span class="at">na.rm=</span>T), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pc.twb <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, TwB, <span class="at">col=</span>sesso))<span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">lwd=</span><span class="fl">1.3</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Tw/B (mean value)'</span>, <span class="at">x=</span><span class="st">''</span>, <span class="at">tag =</span> <span class="st">'A'</span>)<span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pc.hiw <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date,sesso) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Hiw=</span><span class="fu">mean</span>(Hiw,<span class="at">na.rm=</span>T), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pc.hiw <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, Hiw, <span class="at">col=</span>sesso))<span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">lwd=</span><span class="fl">1.3</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Hiw (mean value)'</span>, <span class="at">x=</span><span class="st">''</span>, <span class="at">tag =</span> <span class="st">'B'</span>)<span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 23 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 23 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="gsi" class="level2">
+<h2 class="anchored" data-anchor-id="gsi">GSI</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pc.ind <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(sesso<span class="sc">==</span><span class="st">'F'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">GSI=</span>peso.gonadi<span class="sc">/</span>(peso.tot<span class="sc">-</span>peso.gonadi)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">GSI=</span><span class="fu">mean</span>(GSI, <span class="at">na.rm =</span> T),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">HIw=</span><span class="fu">mean</span>(Hiw, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pc.ind <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,GSI))<span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">col=</span><span class="st">'brown'</span>,<span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">col=</span><span class="st">'brown'</span>,<span class="at">lwd=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(date,HIw<span class="sc">/</span><span class="dv">2</span>),<span class="at">col=</span><span class="st">'#F98178'</span>,<span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(date,HIw<span class="sc">/</span><span class="dv">2</span>),<span class="at">col=</span><span class="st">'#F98178'</span>,<span class="at">lwd=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>. <span class="sc">/</span><span class="dv">2</span>, <span class="at">name =</span> <span class="st">"HIw"</span>)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>, <span class="at">tag =</span> <span class="st">'D'</span>) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.left =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"brown"</span>),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#F98178"</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 12 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 12 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pc.ind <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GSI,HIw))<span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 12 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="confronto-con-livelli-idrometrici" class="level2">
+<h2 class="anchored" data-anchor-id="confronto-con-livelli-idrometrici">Confronto con livelli idrometrici</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>livello <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">here</span>(<span class="st">'input/idrometro/idrometroSSavino2000-2021.xlsx'</span>),</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">detectDates =</span> T) </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>liv <span class="ot">&lt;-</span> livello <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">date=</span>data, <span class="at">avg=</span>livello.idrometrico)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>liv <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,avg))<span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="mute-1" class="level3">
+<h3 class="anchored" data-anchor-id="mute-1">mute</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(mute)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>mute <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(data=liv,aes(date,(avg+1)*100), col='#0082FF')+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(aes(col=sesso), size=4)+</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">col=</span>sesso), <span class="at">lwd=</span><span class="fl">1.3</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>. <span class="sc">/</span><span class="dv">100-1</span>, </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">name =</span> <span class="st">"Hydrometric level"</span>)) <span class="sc">+</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'#0082FF'</span>)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="femmine-mature" class="level3">
+<h3 class="anchored" data-anchor-id="femmine-mature">Femmine mature</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(pc.f)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(maturità.gonadi<span class="sc">==</span><span class="st">'MATURE'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,maturità.gonadi) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(col='#F19837', size=4)+</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">col=</span><span class="st">'#F19837'</span>, <span class="at">lwd=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="000.gambero2025_20y_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

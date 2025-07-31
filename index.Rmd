@@ -15,6 +15,16 @@ Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di rif
 -   file PDF
 
 ## Daily log
+-   **2025-07-31** 
+    -   serie livelli idrometrici completa
+-   **2025-07-28**
+    -   nuovo file 2000 - 2021, con campi rinominati e biometrie corrette
+    -   elaborazione senza livelli idrometrici
+-   **2025-07-23**
+    -   invio nuovo file con campi rinominati da BARBARA
+-   **2025-07-09** 
+    -   necessario rivedere nome campi e uniformarli con il file precedente
+    -   condivisione nuovo file 
 -   **2025-07-07**
     -   [x] condivisione risultati secondo round
     -   invio nuovo file corretto xlsx
