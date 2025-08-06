@@ -204,6 +204,7 @@ pc.m %>%
 ```
 
 ```{r}
+library(ggbreak) 
 pc.m %>% 
     ggplot(aes(date,perc, fill=SA))+
     geom_col()+
