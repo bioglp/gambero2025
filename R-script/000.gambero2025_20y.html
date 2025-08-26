@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">here</span>(<span class="st">"input/Gamberi morfometria 2000-2021.xlsx"</span>),</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">detectDates =</span> T)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pc[pc<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co"># remove 0s</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 8,059
@@ -207,12 +207,12 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="odd">
 <td style="text-align: left;">F</td>
 <td style="text-align: left;">peso.addome</td>
-<td style="text-align: right;">3296</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">3295</td>
+<td style="text-align: right;">0.40</td>
 <td style="text-align: right;">17.30</td>
 <td style="text-align: right;">6.30</td>
 <td style="text-align: right;">3.50</td>
-<td style="text-align: right;">6.65</td>
+<td style="text-align: right;">6.66</td>
 <td style="text-align: right;">2.66</td>
 <td style="text-align: right;">0.05</td>
 <td style="text-align: right;">0.09</td>
@@ -233,8 +233,8 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="odd">
 <td style="text-align: left;">F</td>
 <td style="text-align: left;">Hiw</td>
-<td style="text-align: right;">2613</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2612</td>
+<td style="text-align: right;">0.62</td>
 <td style="text-align: right;">19.40</td>
 <td style="text-align: right;">6.49</td>
 <td style="text-align: right;">3.10</td>
@@ -246,26 +246,26 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="even">
 <td style="text-align: left;">F</td>
 <td style="text-align: left;">TwB</td>
-<td style="text-align: right;">3268</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">3258</td>
+<td style="text-align: right;">2.15</td>
 <td style="text-align: right;">53.64</td>
-<td style="text-align: right;">27.65</td>
+<td style="text-align: right;">27.66</td>
 <td style="text-align: right;">5.40</td>
-<td style="text-align: right;">28.27</td>
-<td style="text-align: right;">4.56</td>
-<td style="text-align: right;">0.08</td>
-<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">28.35</td>
+<td style="text-align: right;">4.29</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.15</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">F</td>
 <td style="text-align: left;">peso.gonadi</td>
-<td style="text-align: right;">1568</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1114</td>
+<td style="text-align: right;">0.02</td>
 <td style="text-align: right;">4.41</td>
-<td style="text-align: right;">0.67</td>
-<td style="text-align: right;">1.67</td>
-<td style="text-align: right;">0.95</td>
-<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">1.34</td>
+<td style="text-align: right;">0.91</td>
 <td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.05</td>
 </tr>
@@ -285,8 +285,8 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="odd">
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">peso.tot</td>
-<td style="text-align: right;">4640</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4639</td>
+<td style="text-align: right;">1.20</td>
 <td style="text-align: right;">76.70</td>
 <td style="text-align: right;">21.30</td>
 <td style="text-align: right;">12.40</td>
@@ -298,8 +298,8 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="even">
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">peso.addome</td>
-<td style="text-align: right;">4720</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4719</td>
+<td style="text-align: right;">0.40</td>
 <td style="text-align: right;">33.20</td>
 <td style="text-align: right;">5.30</td>
 <td style="text-align: right;">2.40</td>
@@ -324,11 +324,11 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="even">
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">Hiw</td>
-<td style="text-align: right;">4059</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4056</td>
+<td style="text-align: right;">0.56</td>
 <td style="text-align: right;">20.00</td>
-<td style="text-align: right;">5.50</td>
-<td style="text-align: right;">2.16</td>
+<td style="text-align: right;">5.51</td>
+<td style="text-align: right;">2.15</td>
 <td style="text-align: right;">5.53</td>
 <td style="text-align: right;">1.59</td>
 <td style="text-align: right;">0.03</td>
@@ -337,15 +337,15 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <tr class="odd">
 <td style="text-align: left;">M</td>
 <td style="text-align: left;">TwB</td>
-<td style="text-align: right;">4623</td>
-<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4620</td>
+<td style="text-align: right;">4.78</td>
 <td style="text-align: right;">50.73</td>
 <td style="text-align: right;">25.00</td>
 <td style="text-align: right;">5.28</td>
-<td style="text-align: right;">25.32</td>
-<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">25.34</td>
+<td style="text-align: right;">4.31</td>
 <td style="text-align: right;">0.06</td>
-<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.12</td>
 </tr>
 </tbody>
 </table>
@@ -1590,6 +1590,10 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#F98178"</span>)</span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 12 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
@@ -1604,9 +1608,9 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pc.ind <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GSI,HIw))<span class="sc">+</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pc.ind <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GSI,HIw))<span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 12 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
@@ -1623,16 +1627,16 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <section id="confronto-con-livelli-idrometrici" class="level2">
 <h2 class="anchored" data-anchor-id="confronto-con-livelli-idrometrici">Confronto con livelli idrometrici</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>livello <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">here</span>(<span class="st">'input/idrometro/idrometroSSavino2000-2021.xlsx'</span>),</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">detectDates =</span> T) </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>liv <span class="ot">&lt;-</span> livello <span class="sc">%&gt;%</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">date=</span>data, <span class="at">avg=</span>livello.idrometrico)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>liv <span class="sc">%&gt;%</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,avg))<span class="sc">+</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>livello <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">here</span>(<span class="st">'input/idrometro/idrometroSSavino2000-2021.xlsx'</span>),</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">detectDates =</span> T) </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>liv <span class="ot">&lt;-</span> livello <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">date=</span>data, <span class="at">avg=</span>livello.idrometrico)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>liv <span class="sc">%&gt;%</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,avg))<span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
@@ -1648,22 +1652,22 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <section id="mute-1" class="level3">
 <h3 class="anchored" data-anchor-id="mute-1">mute</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(mute)</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>mute <span class="sc">%&gt;%</span> </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(data=liv,aes(date,(avg+1)*100), col='#0082FF')+</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(aes(col=sesso), size=4)+</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">col=</span>sesso), <span class="at">lwd=</span><span class="fl">1.3</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>. <span class="sc">/</span><span class="dv">100-1</span>, </span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">name =</span> <span class="st">"Hydrometric level"</span>)) <span class="sc">+</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'#0082FF'</span>)</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(mute)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>mute <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(data=liv,aes(date,(avg+1)*100), col='#0082FF')+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(aes(col=sesso), size=4)+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">col=</span>sesso), <span class="at">lwd=</span><span class="fl">1.3</span>, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>. <span class="sc">/</span><span class="dv">100-1</span>, </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">name =</span> <span class="st">"Hydrometric level"</span>)) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">'#0082FF'</span>)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1676,17 +1680,17 @@ $ peso.gonadi     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 <section id="femmine-mature" class="level3">
 <h3 class="anchored" data-anchor-id="femmine-mature">Femmine mature</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(pc.f)</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(maturità.gonadi<span class="sc">==</span><span class="st">'MATURE'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,maturità.gonadi) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(col='#F19837', size=4)+</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">col=</span><span class="st">'#F19837'</span>, <span class="at">lwd=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(pc.f)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>pc.f <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(maturità.gonadi<span class="sc">==</span><span class="st">'MATURE'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(date,maturità.gonadi) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(date,n))<span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">data=</span>liv,<span class="fu">aes</span>(date,(avg<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>), </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">col=</span><span class="st">'#0082FF'</span>, <span class="at">alpha=</span><span class="fl">0.2</span>, <span class="at">lwd=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point(col='#F19837', size=4)+</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">col=</span><span class="st">'#F19837'</span>, <span class="at">lwd=</span><span class="fl">1.3</span>)<span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

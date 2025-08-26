@@ -42,7 +42,7 @@ Anni di riferimento: 2000 - 2021
 # import data
 pc <- read.xlsx(here("input/Gamberi morfometria 2000-2021.xlsx"),
                 detectDates = T)
-
+pc[pc==0] <- NA # remove 0s
 glimpse(pc)
 ```
 
