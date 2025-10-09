@@ -1,0 +1,251 @@
+---
+title: "gambero 2024"
+author: "GLP"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## settings
+
+```{r}
+# dir.create('input', showWarnings = FALSE)
+# dir.create('output', showWarnings = FALSE)
+# dir.create('figures', showWarnings = FALSE)
+# dir.create('R-script', showWarnings = FALSE)
+library(pacman)
+p_load(tidyverse,stargazer,skimr,here,
+       ggpubr,rstatix,openxlsx, geodata,sp)
+theme_set(theme_bw(base_size = 16))
+```
+
+## import data
+
+```{r}
+# enzimi
+enzimi <- read.xlsx('input/enzimi/enzimi.xlsx',
+                      sheet = 1)
+enzimi$year <- substr(enzimi$data,4,5)
+enzimi$month <- substr(enzimi$data,1,2)
+
+# intervallo
+unique(enzimi$year)
+
+# metalli
+metalli <- read.xlsx('input/metalli/Pclarkii TrasiMetalli 18-19 verificati.xlsx', sheet=1)
+head(metalli)
+metalli$year <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),3,4)
+metalli$month <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),1,2)
+
+# intervallo
+unique(metalli$year)
+
+# chimica
+chimica <- read.csv('input/chimica/chimLudovisi.csv')
+```
+
+## check values
+
+```{r}
+skim(metalli)
+skim(enzimi)
+skim(chimica)
+```
+
+## Analisi PCA
+
+```{r PCA metalli}
+glimpse(metalli)
+
+get_season <- function(month) {
+  if (month %in% c('03', '04', '05')) {
+    return("Spring")
+  } else if (month %in% c('06', '07', '08')) {
+    return("Summer")
+  } else if (month %in% c('09', '10', '11')) {
+    return("Autumn")
+  } else {
+    return("Winter")
+  }
+}
+metalli$season <- sapply(metalli$month, get_season)
+
+library(GABB)
+library(FactoMineR)
+
+prep_data(data = na.omit(metalli), quantitative_columns = c(4:14), 
+          transform_data_method = "log", 
+          scale_data = T)
+data_quant
+
+## Create PCA
+library(FactoMineR)
+library(factoextra)
+met.pca <- FactoMineR::PCA(X = data_quant) 
+pca_res <- prcomp(data_quant, scale. = TRUE)
+
+autoplot(pca_res, data=na.omit(metalli),
+#         frame = TRUE, frame.type='norm', frame.alpha=0.2,
+         colour = 'sesso', shape='season', size=3.5,
+         loadings = TRUE, loadings.colour = 'grey',
+         loadings.label.colour = 'grey20',
+         loadings.label = TRUE, loadings.label.size = 4)
+
+#Advanced outputs (image below)
+PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed, 
+                 PCA.object = met.pca, 
+                 factor.names = c("sesso", "tessuto"), 
+                 Biplot.PCA = TRUE,col.arrow.var.PCA = "grey",
+                 Barycenter = TRUE, Segments = TRUE,
+                 Ellipse.IC = TRUE,
+                 Barycenter.Ellipse.Fac1 = "sesso", 
+                 Barycenter.Ellipse.Fac2 = "tessuto",
+                 factor.colors = "sesso", factor.shapes = "tessuto",
+                 Barycenter.factor.col = "sesso", 
+                 Barycenter.factor.shape = "tessuto")
+```
+
+-   netta differenziazione tra i tessuti
+-   chiara distinzione tra M e F
+-   anche il tipo di metallo accumulato sembra essere diverso
+-   valutare differenze in termini statistici
+-   esaminare tendenze stagionali
+
+```{r PCA metalli stagioni}
+#analisi solo M
+metalliH <- metalli %>% 
+  na.omit() %>% filter(tessuto=='Hepatopancreas')
+
+prep_data(data = metalliH, quantitative_columns = c(4:14), 
+          transform_data_method = "log", 
+          scale_data = T)
+data_quant
+
+## Create PCA
+metH.pca <- FactoMineR::PCA(X = data_quant) 
+
+PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed, 
+                 PCA.object = metH.pca, 
+                 factor.names = c("sesso","season"), 
+                 Biplot.PCA = TRUE,col.arrow.var.PCA = "grey",
+                 Barycenter = TRUE, Segments = TRUE,
+                 Ellipse.IC = TRUE,
+                 Barycenter.Ellipse.Fac1 = "sesso", 
+                 Barycenter.Ellipse.Fac2 = "season",
+                 factor.colors = "sesso", factor.shapes = "season",
+                 Barycenter.factor.col = "sesso", 
+                 Barycenter.factor.shape = "season")
+```
+
+-   meno del 40% della variabilità complessiva
+-   buona separazione tra m e f
+-   comparazione autunno-inverno con boxplot (vedi sotto, replicabile per tutti i metalli)
+
+```{r}
+metalliH %>% 
+  ggplot(aes(season,Cr))+
+  geom_boxplot(aes(fill=sesso))+
+  stat_compare_means(
+    comparisons = list(
+      c("Autumn", "Winter")
+    ),
+    method = "wilcox.test",
+    label = "p.signif"
+  )+
+  facet_grid(~sesso)
+```
+
+```{r pca enzimi}
+glimpse(enzimi)
+enzimi$season <- sapply(enzimi$month, get_season)
+
+enzimi.db <- enzimi %>% 
+  select(sesso,tessuto,season,SOD:MT) %>% 
+  filter(tessuto=='Hepatopancreas') %>% 
+  na.omit()
+
+prep_data(data = enzimi.db, quantitative_columns = c(4:7), 
+          transform_data_method = "log", 
+          scale_data = T)
+data_quant
+
+enz.pca <- FactoMineR::PCA(X = data_quant)
+enz.pca$eig
+enz.pca$ind$coord
+
+pca_res <- prcomp(data_quant, scale. = TRUE)
+
+autoplot(pca_res, data=enzimi.db,
+#         frame = TRUE, frame.type='norm', frame.alpha=0.2,
+         colour = 'season', shape='sesso', size=3.5, #alpha=0.6,
+         loadings = TRUE, loadings.colour = 'grey',
+         loadings.label.colour = 'grey20',
+         loadings.label = TRUE, loadings.label.size = 4)
+
+
+PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed, 
+                 PCA.object = enz.pca, 
+                 factor.names = c("sesso", "season", "tessuto"))
+
+PCA_RDA_graphics(complete.data.set = enzimi.db, 
+                 PCA.object = enz.pca, 
+                 factor.names = c("sesso","season"), 
+                 Biplot.PCA = TRUE,col.arrow.var.PCA = "grey",
+                 Barycenter = TRUE, Segments = TRUE,
+                 Ellipse.IC = TRUE,
+                 Barycenter.Ellipse.Fac1 = "sesso", 
+                 Barycenter.Ellipse.Fac2 = "season",
+                 factor.colors = "sesso", factor.shapes = "season",
+                 Barycenter.factor.col = "sesso", 
+                 Barycenter.factor.shape = "season")
+```
+
+-   buona separazione per sessi
+
+```{r}
+enzimi %>% 
+  filter(tessuto=='Hepatopancreas') %>% 
+  aggregate(SOD~sesso, FUN=mean)
+```
+
+```{r}
+enzimi.db <- enzimi %>% 
+  select(sesso,tessuto,season,SOD:MT) %>% 
+  #filter(tessuto=='Abdominal muscle') %>% 
+  na.omit()
+
+prep_data(data = enzimi.db, quantitative_columns = c(4:7), 
+          transform_data_method = "log", 
+          scale_data = T)
+data_quant
+
+enz.pca <- FactoMineR::PCA(X = data_quant)
+enz.pca$eig
+enz.pca$ind$coord
+
+pca_res <- prcomp(data_quant, scale. = TRUE)
+
+# autoplot(pca_res, data=enzimi.db,
+# #         frame = TRUE, frame.type='norm', frame.alpha=0.2,
+#          colour = 'season', shape='sesso', size=3.5, #alpha=0.6,
+#          loadings = TRUE, loadings.colour = 'grey',
+#          loadings.label.colour = 'grey20',
+#          loadings.label = TRUE, loadings.label.size = 4)
+
+PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed, 
+                 PCA.object = enz.pca, 
+                 factor.names = c("sesso", "season", "tessuto"))
+
+PCA_RDA_graphics(complete.data.set = enzimi.db, 
+                 PCA.object = enz.pca, 
+                 factor.names = c("sesso","tessuto"), 
+                 Biplot.PCA = TRUE,col.arrow.var.PCA = "grey",
+                 Barycenter = TRUE, Segments = TRUE,
+                 Ellipse.IC = TRUE,
+                 Barycenter.Ellipse.Fac1 = "sesso", 
+                 Barycenter.Ellipse.Fac2 = "tessuto",
+                 factor.colors = "sesso", factor.shapes = "tessuto",
+                 Barycenter.factor.col = "sesso", 
+                 Barycenter.factor.shape = "tessuto")
+```
