@@ -10,7 +10,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, echo=FALSE}
+```{r set, echo=FALSE}
 # -------------------------------------
 # dir.create('input', showWarnings = FALSE)
 # dir.create('output', showWarnings = FALSE)
@@ -35,9 +35,10 @@ options(
 
 ## Gambero 2025
 
-Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: luglio 2018 - maggio 2021
+Serie storica triennale su *Procambarus clarkii* del lago Trasimeno.
+Anni di riferimento: luglio 2018 - maggio 2021
 
-```{r}
+```{r import data}
 # import data
 pc <- read.xlsx(here("input/Gamberi morfometria 3 anni_.xlsx"),
                 detectDates = T)
@@ -49,7 +50,7 @@ glimpse(pc)
 
 ## Statistiche descrittive
 
-```{r}
+```{r gt table}
 pc %>% 
     select(where(is.numeric),sesso,-n) %>% 
     group_by(sesso) %>% 
@@ -248,6 +249,43 @@ pc.hiw %>%
     theme(legend.position = 'none')
 ```
 
+```{r fig.height=9, fig.width=13}
+pc %>% 
+  filter(year>=2019) %>% 
+  ggplot(aes(sesso,Hiw))+
+  geom_boxplot(aes(fill=sesso))+
+  stat_compare_means(method = 't.test')+
+  stat_summary(geom = "errorbar", 
+                         fun.min = mean, fun = mean, fun.max = mean, 
+                         width = .75, linetype='dashed')+
+  labs(x='')+
+  theme(legend.position = 'none')
+```
+
+```{r}
+pc2019 <- pc %>% 
+  filter(year>=2019)
+t.test(Hiw~sesso, data=pc2019, var.equal=T)
+```
+
+```{r fig.height=9, fig.width=13}
+pc %>% 
+  filter(year>=2019) %>% 
+  ggplot(aes(sesso,TwB))+
+  geom_boxplot(aes(fill=sesso))+
+  stat_compare_means(method = 't.test')+
+  stat_summary(geom = "errorbar", 
+                         fun.min = mean, fun = mean, fun.max = mean, 
+                         width = .75, linetype='dashed')+
+    labs(x='')+
+  theme(legend.position = 'none')
+```
+
+```{r}
+t.test(TwB~sesso, data=pc2019, var.equal=T)
+```
+
+
 ## GSI
 
 ```{r}
@@ -275,7 +313,10 @@ pc.ind %>%
 
 pc.ind %>% 
     ggplot(aes(GSI,HIw))+
-    geom_point(size=3)
+    geom_smooth(method = 'lm')+
+    geom_point(size=3)+
+    #stat_regline_equation()+
+    stat_cor()
 ```
 
 ## Confronto con livelli idrometrici
@@ -310,12 +351,33 @@ mute %>%
     geom_line(aes(col=sesso), lwd=1.3)+
     scale_y_continuous(sec.axis = sec_axis(~. /100-1, 
                                            name = "Hydrometric level")) +
-    labs(x='') +
+    labs(x='', y='n') +
     theme(
         legend.position = 'none',
         axis.title.y.right = element_text(color = '#0082FF')
     )
 ```
+
+```{r fig.height=9, fig.width=13}
+library(rstatix)
+library(ggpubr)
+
+head(mute)
+mute <- left_join(mute,liv,by = 'date')
+mute %>% 
+  ggplot(aes(avg,perc, group=sesso, colour = sesso))+
+  geom_smooth(method = 'lm')+
+  geom_point()+
+  facet_grid(~sesso)+
+  stat_regline_equation()
+```
+
+```{r}
+mute %>% 
+  group_by(sesso) %>% 
+  cor_test(avg,perc)
+```
+
 
 ### Femmine mature
 
@@ -330,5 +392,27 @@ pc.f %>%
               col='#0082FF', alpha=0.2, lwd=3)+
     geom_point(col='#F19837', size=4)+
     geom_line(col='#F19837', lwd=1.3)+
-    labs(x='')
+    labs(x='', y='n')
 ```
+
+```{r fig.height=9, fig.width=13}
+pc.f %>% 
+  filter(maturità.gonadi=='MATURE',
+         year>=2019) %>% 
+  count(date,maturità.gonadi) %>% 
+  left_join(liv,by='date') %>% 
+  ggplot(aes(avg,n))+
+  geom_smooth(method = 'lm')+
+  geom_point(col='#F19837', size=4)+
+  stat_cor()
+```
+
+```{r}
+pc.f %>% 
+  filter(maturità.gonadi=='MATURE',
+         year>=2019) %>% 
+  count(date,maturità.gonadi) %>% 
+  left_join(liv,by='date') %>% 
+  cor_test(n,avg)
+```
+

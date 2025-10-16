@@ -24,7 +24,7 @@ theme_set(theme_bw(base_size = 16))
 
 ```{r}
 # enzimi
-enzimi <- read.xlsx('input/enzimi/enzimi.xlsx',
+enzimi <- read.xlsx(here('000.gambero2024/R-gambero/input/enzimi/enzimi.xlsx'),
                       sheet = 1)
 enzimi$year <- substr(enzimi$data,4,5)
 enzimi$month <- substr(enzimi$data,1,2)
@@ -33,7 +33,7 @@ enzimi$month <- substr(enzimi$data,1,2)
 unique(enzimi$year)
 
 # metalli
-metalli <- read.xlsx('input/metalli/Pclarkii TrasiMetalli 18-19 verificati.xlsx', sheet=1)
+metalli <- read.xlsx('000.gambero2024/R-gambero/input/metalli/Pclarkii TrasiMetalli 18-19 verificati.xlsx', sheet=1)
 head(metalli)
 metalli$year <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),3,4)
 metalli$month <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),1,2)
@@ -42,7 +42,7 @@ metalli$month <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),1,2)
 unique(metalli$year)
 
 # chimica
-chimica <- read.csv('input/chimica/chimLudovisi.csv')
+chimica <- read.csv('000.gambero2024/R-gambero/input/chimica/chimLudovisi.csv')
 ```
 
 ## check values
@@ -140,7 +140,8 @@ PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed,
 
 -   meno del 40% della variabilità complessiva
 -   buona separazione tra m e f
--   comparazione autunno-inverno con boxplot (vedi sotto, replicabile per tutti i metalli)
+-   comparazione autunno-inverno con boxplot (vedi sotto, replicabile
+    per tutti i metalli)
 
 ```{r}
 metalliH %>% 
@@ -199,6 +200,30 @@ PCA_RDA_graphics(complete.data.set = enzimi.db,
                  factor.colors = "sesso", factor.shapes = "season",
                  Barycenter.factor.col = "sesso", 
                  Barycenter.factor.shape = "season")
+
+
+enzimi.db2 <- enzimi %>% 
+  select(sesso,tessuto,season,SOD:MT) %>% 
+  filter(tessuto=='Abdominal muscle') %>% 
+  na.omit()
+prep_data(data = enzimi.db2, quantitative_columns = c(4:7), 
+          transform_data_method = "log", 
+          scale_data = T)
+data_quant
+enz.pca <- FactoMineR::PCA(X = data_quant)
+
+PCA_RDA_graphics(complete.data.set = enzimi.db2, 
+                 PCA.object = enz.pca, 
+                 factor.names = c("sesso","season"), 
+                 Biplot.PCA = TRUE,col.arrow.var.PCA = "grey",
+                 Barycenter = TRUE, Segments = TRUE,
+                 Ellipse.IC = TRUE,
+                 Barycenter.Ellipse.Fac1 = "sesso", 
+                 Barycenter.Ellipse.Fac2 = "season",
+                 factor.colors = "sesso", factor.shapes = "season",
+                 Barycenter.factor.col = "sesso", 
+                 Barycenter.factor.shape = "season")
+
 ```
 
 -   buona separazione per sessi
