@@ -1,7 +1,7 @@
 ---
 title: "Elaborazioni Gambero2025 - serie 2000-2021"
 author: "Gianandrea LP"
-date: 2025-10-08
+date: 2025-10-20
 format: html
 theme: journal
 editor: visual
@@ -35,7 +35,8 @@ options(
 
 ## Gambero 2025 (2000 - 2021)
 
-Serie storica pluriennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: 2000 - 2021
+Serie storica pluriennale su *Procambarus clarkii* del lago Trasimeno.
+Anni di riferimento: 2000 - 2021
 
 ```{r}
 # import data
@@ -361,6 +362,41 @@ pc.twb %>%
             labels = c('2001','2007','2009','2018','2020'))+
     theme(legend.position = 'none')
 ```
+
+```{r carapace length, fig.height=9, fig.width=13}
+pc %>%
+  group_by(sesso, adj_date) %>% 
+  get_summary_stats(lt.carapace) %>% 
+  ggplot(aes(adj_date,mean))+
+  geom_line(aes(col=sesso), alpha=0.9, lwd=1.3)+
+  geom_point(aes(col=sesso),size=3)+
+  labs(x='',y='carapace length')+
+        geom_vline(xintercept = as.Date('2017-06-01'), 
+        linetype='dotted')+
+        scale_x_date(breaks=as.Date(c('2012-01-01',
+        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
+            labels = c('2001','2007','2009','2018','2020'))+
+    theme(legend.position = 'none')
+```
+
+```{r total weight, fig.height=9, fig.width=13}
+pc %>%
+  group_by(sesso, adj_date) %>% 
+  get_summary_stats(peso.tot) %>% 
+  ggplot(aes(adj_date,mean))+
+  geom_line(aes(col=sesso), alpha=0.9, lwd=1.3)+
+  geom_point(aes(col=sesso),size=3)+
+  labs(y='total weight (g)', x='')+
+          geom_vline(xintercept = as.Date('2013-06-01'), 
+        linetype='dotted')+
+        geom_vline(xintercept = as.Date('2017-06-01'), 
+        linetype='dotted')+
+        scale_x_date(breaks=as.Date(c('2012-01-01',
+        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
+            labels = c('2001','2007','2009','2018','2020'))+
+    theme(legend.position = 'none')
+```
+
 
 ```{r}
 pc.hiw <- pc %>% 

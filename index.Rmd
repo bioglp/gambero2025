@@ -16,6 +16,8 @@ Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di rif
 -   file PDF
 
 ## Daily log
+-   **2025-10-20**
+    -   inseriti due nuovi grafici per peso e lunghezza carapace nella serie storica ventennale
 -   **2025-10-07**
     -   revisione delle date con trasformazione di:
         2000:2001 in :2011:2012

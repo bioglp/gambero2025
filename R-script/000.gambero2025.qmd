@@ -35,8 +35,7 @@ options(
 
 ## Gambero 2025
 
-Serie storica triennale su *Procambarus clarkii* del lago Trasimeno.
-Anni di riferimento: luglio 2018 - maggio 2021
+Serie storica triennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: luglio 2018 - maggio 2021
 
 ```{r import data}
 # import data
@@ -285,7 +284,6 @@ pc %>%
 t.test(TwB~sesso, data=pc2019, var.equal=T)
 ```
 
-
 ## GSI
 
 ```{r}
@@ -363,13 +361,13 @@ library(rstatix)
 library(ggpubr)
 
 head(mute)
-mute <- left_join(mute,liv,by = 'date')
+mute <- left_join(mute,liv,by = 'date') %>% as_tibble()
 mute %>% 
   ggplot(aes(avg,perc, group=sesso, colour = sesso))+
   geom_smooth(method = 'lm')+
   geom_point()+
   facet_grid(~sesso)+
-  stat_regline_equation()
+  stat_cor()
 ```
 
 ```{r}
@@ -378,6 +376,46 @@ mute %>%
   cor_test(avg,perc)
 ```
 
+```{r serieStorica}
+library(tsibble)
+library(feasts)
+library(lubridate)
+
+muteF <- mute %>% 
+  filter(sesso=='F') %>% 
+  dplyr::select(date,n,avg) %>% 
+  as_tsibble(index=date)
+  
+monthly_muteF <- muteF |>
+  mutate(date = yearmonth(date)) |>      # converte la data in formato mensile
+  index_by(date) |>                      # imposta l’indice temporale mensile
+  summarise(
+    n = mean(n, na.rm = TRUE),
+    avg = mean(avg, na.rm = TRUE)
+  ) |> 
+  fill_gaps()
+
+autoplot(monthly_muteF, n) + labs(x='')
+autoplot(monthly_muteF, avg) + labs(x='')
+
+monthly_muteF %>% 
+  ACF(n) %>% 
+  autoplot()
+
+monthly_muteF %>% 
+  ACF(avg) %>% 
+  autoplot()
+
+monthly_muteF %>% 
+  CCF(avg,n, type = 'correlation') %>% 
+  autoplot()
+
+
+library(vars)
+data <- as.data.frame(muteF)
+mod_var <- VAR(data[,-1], p = 2)
+causality(mod_var, cause = "avg")
+```
 
 ### Femmine mature
 
@@ -416,3 +454,6 @@ pc.f %>%
   cor_test(n,avg)
 ```
 
+```{r}
+
+```
