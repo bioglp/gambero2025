@@ -454,6 +454,121 @@ pc.f %>%
   cor_test(n,avg)
 ```
 
-```{r}
+# Chimica
 
+```{r datiChimici}
+chimLudo <- read.xlsx(here('input/chimLudoEn.xlsx'))
+chimLudo <- as_tibble(chimLudo)
+glimpse(chimLudo)
+chimLudo$date <- as.Date(str_c(chimLudo$year+2000,'-',chimLudo$month,'-01'))
+
+clarkChim <- left_join(pc,chimLudo, by='date')
+glimpse(clarkChim)
+```
+
+# PCA
+
+```{r PCA}
+library(factoextra)
+library(lubridate)
+
+df <- readRDS('input/clarkChim.RDS')
+metalli <- read.xlsx('input/metalliMean.xlsx',detectDates = T)
+
+df <- left_join(df,metalli)
+
+# 1. Crea la variabile stagione
+df.pca <- df %>%
+  dplyr::select(date, sesso, SODM:MTH,
+                Secchi, `T-avg`, `pH-avg`, 
+                `DO-avg`, `cond-avg`, 
+                `Hydrometric level`, Cr.M:Fe.H) %>%
+  na.omit()
+
+df.pca$date <- as.Date(df.pca$date)
+
+# Funzione per assegnare la stagione
+get_season <- function(dates) {
+  m <- month(dates)
+  ifelse(m %in% c(12, 1, 2), "Winter",
+  ifelse(m %in% c(3, 4, 5), "Spring",
+  ifelse(m %in% c(6, 7, 8), "Summer", "Autumn")))
+}
+
+df.pca$Stagione <- factor(get_season(df.pca$date),
+                          levels = c("Winter", 
+                                     "Spring", 
+                                     "Summer", 
+                                     "Autumn"))
+# 2. prcomp
+df.pca.num <- df.pca %>%
+  filter(sesso=='M') %>% 
+  dplyr::select(where(is.numeric))
+
+pca_res <- prcomp(df.pca.num, scale. = TRUE)
+
+# 3. MALES
+fviz_pca_biplot(pca_res,
+             geom.ind = "point",
+             col.ind = df.pca$Stagione[df.pca$sesso=='M'],
+             palette = "Set2",
+             addEllipses = TRUE,
+             legend.title = "Season") +
+  ggtitle("PCA - Seasonal differences in males") +
+  theme_minimal()
+ggsave('plots/pcaMalesMetalli.pdf', width = 9, height = 7)
+
+# 2. prcomp
+df.pca.num <- df.pca %>%
+  filter(sesso=='F') %>% 
+  dplyr::select(where(is.numeric))
+
+pca_res <- prcomp(df.pca.num, scale. = TRUE)
+
+# 3. FEMALES
+fviz_pca_biplot(pca_res,
+             geom.ind = "point",
+             col.ind = df.pca$Stagione[df.pca$sesso=='F'],
+             palette = "Set2",
+             addEllipses = TRUE,
+             legend.title = "Season") +
+  ggtitle("PCA - Seasonal differences in females") +
+  theme_minimal()
+ggsave('plots/pcaFemalesMetalli.pdf', width = 9, height = 7)
+```
+
+```{r metalliEnzimi}
+library(rstatix)
+GPxM <- df %>% 
+  select(Cr.M,Hg.M,Cd.M,Pb.M,Ag.M,Ni.M,MTM,GPxM) %>% 
+  cor_test(Cr.M:Ni.M,GPxM) %>% 
+  filter(var2=='GPxM', var1!='GPxM')
+
+MTM <- df %>% 
+  select(Cr.M,Hg.M,Cd.M,Pb.M,Ag.M,Ni.M,MTM,GPxM) %>% 
+  cor_test(Cr.M:Ni.M,MTM) %>% 
+  filter(var2=='MTM', var1!='MTM')
+
+GPxH <- df %>% 
+  select(Cr.H,Hg.H,Cd.H,Pb.H,Ag.H,Ni.H,MTH,GPxH) %>% 
+  cor_test(Cr.H:Ni.H,GPxH) %>%
+  filter(var2=='GPxH', var1!='GPxH')
+
+MTH <- df %>% 
+  select(Cr.H,Hg.H,Cd.H,Pb.H,Ag.H,Ni.H,MTH,GPxH) %>% 
+  cor_test(Cr.H:Ni.H,MTH) %>%
+  filter(var2=='MTH', var1!='MTH')
+
+corr <- rbind(GPxM,GPxH,MTM,MTH)
+corr %>% 
+  write.xlsx('correlazioni20251105.xlsx')
+
+corr %>% 
+  ggplot(aes(var2,var1))+
+  geom_point(aes(col=cor>0, size=cor))+
+  scale_size(range = c(5,20))+
+  geom_text(aes(label=cor),size=3)+
+  labs(x='',y='')+
+  theme(legend.position = 'none')
+ggsave('correlazioni20251105.pdf',height = 9, width = 5)  
 ```

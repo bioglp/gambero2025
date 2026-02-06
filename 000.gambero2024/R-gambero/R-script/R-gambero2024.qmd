@@ -24,7 +24,7 @@ theme_set(theme_bw(base_size = 16))
 
 ```{r}
 # enzimi
-enzimi <- read.xlsx(here('000.gambero2024/R-gambero/input/enzimi/enzimi.xlsx'),
+enzimi <- read.xlsx(here('input/enzimi/enzimi.xlsx'),
                       sheet = 1)
 enzimi$year <- substr(enzimi$data,4,5)
 enzimi$month <- substr(enzimi$data,1,2)
@@ -33,7 +33,7 @@ enzimi$month <- substr(enzimi$data,1,2)
 unique(enzimi$year)
 
 # metalli
-metalli <- read.xlsx('000.gambero2024/R-gambero/input/metalli/Pclarkii TrasiMetalli 18-19 verificati.xlsx', sheet=1)
+metalli <- read.xlsx('input/metalli/Pclarkii TrasiMetalli 18-19 verificati.xlsx', sheet=1)
 head(metalli)
 metalli$year <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),3,4)
 metalli$month <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),1,2)
@@ -42,7 +42,7 @@ metalli$month <- substr(gsub('.*-(\\d+)-.*', '\\1', metalli$codice),1,2)
 unique(metalli$year)
 
 # chimica
-chimica <- read.csv('000.gambero2024/R-gambero/input/chimica/chimLudovisi.csv')
+chimica <- read.csv('input/chimica/chimLudovisi.csv')
 ```
 
 ## check values
@@ -140,8 +140,7 @@ PCA_RDA_graphics(complete.data.set = initial_data_with_quant_transformed,
 
 -   meno del 40% della variabilità complessiva
 -   buona separazione tra m e f
--   comparazione autunno-inverno con boxplot (vedi sotto, replicabile
-    per tutti i metalli)
+-   comparazione autunno-inverno con boxplot (vedi sotto, replicabile per tutti i metalli)
 
 ```{r}
 metalliH %>% 

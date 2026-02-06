@@ -1,10 +1,10 @@
 ---
 title: "Elaborazioni Gambero2025 - serie 2000-2021"
 author: "Gianandrea LP"
-date: 2025-10-20
+date: 2026-02-06
 format: html
 theme: journal
-editor: visual
+editor: source
 subtitle: "[journal](https://bioglp.github.io/gambero2025)"
 editor_options:
   chunk_output_type: console
@@ -17,8 +17,22 @@ editor_options:
 # dir.create('plots', showWarnings = FALSE)
 # dir.create('R-script', showWarnings = FALSE)
 library(pacman)
-p_load(tidyverse,stargazer,skimr,janitor,lubridate, here, gt, 
-       ggpubr,rstatix,openxlsx, ggbreak, patchwork, knitr, zoo)
+p_load(
+  tidyverse,
+  stargazer,
+  skimr,
+  janitor,
+  lubridate,
+  here,
+  gt,
+  ggpubr,
+  rstatix,
+  openxlsx,
+  ggbreak,
+  patchwork,
+  knitr,
+  zoo
+)
 
 options(scipen = 9999)
 theme_set(theme_minimal(base_size = 14))
@@ -28,65 +42,76 @@ theme_set(theme_minimal(base_size = 14))
 my_palette <- c("#f71ae8", "#33C6CA")
 
 options(
-    ggplot2.discrete.colour = my_palette,
-    ggplot2.discrete.fill = my_palette
+  ggplot2.discrete.colour = my_palette,
+  ggplot2.discrete.fill = my_palette
 )
 ```
 
 ## Gambero 2025 (2000 - 2021)
 
-Serie storica pluriennale su *Procambarus clarkii* del lago Trasimeno.
-Anni di riferimento: 2000 - 2021
+Serie storica pluriennale su *Procambarus clarkii* del lago Trasimeno. Anni di riferimento: 2000 - 2021
 
 ```{r}
 # import data
-pc <- read.xlsx(here("input/Gamberi morfometria 2000-2021.xlsx"),
-                detectDates = T)
-pc[pc==0] <- NA # remove 0s
+pc <- read.xlsx(
+  here("input/Gamberi morfometria 2000-2021.xlsx"),
+  detectDates = T
+)
+pc[pc == 0] <- NA # remove 0s
 glimpse(pc)
 ```
 
 ## Statistiche descrittive
 
 ```{r}
-pc %>% 
-    select(where(is.numeric),sesso,-n) %>% 
-    group_by(sesso) %>% 
-    get_summary_stats(type = 'common') %>% 
-    gt()
+pc %>%
+  select(where(is.numeric), sesso, -n) %>%
+  group_by(sesso) %>%
+  get_summary_stats(type = 'common') %>%
+  gt()
 ```
 
 ```{r fig.height=9, fig.width=13}
 #| warning: false
-pc %>% 
-    select(where(is.numeric),sesso) %>% 
-    pivot_longer(lt.carapace:peso.gonadi, 
-                 names_to = 'var', values_to = 'value') %>% 
-    filter(value<800) %>% # <- per eliminare outliers
-    ggplot(aes(var,value))+
-    geom_jitter(aes(col=sesso),alpha=0.2, size=2)+
-    scale_y_sqrt()+
-    
-    stat_summary(
-        aes(group = sesso),
-        fun = mean,
-        geom = "point",
-        shape = 18, size = 3, col='black', alpha=0.5,
-        position = position_dodge(width = 0.3) # per separare se necessario
-    ) +
-    
-    labs(x='')+
-    facet_grid(~sesso)+
-    theme(legend.position = 'none',
-          axis.text.x = element_text(angle = 90, vjust = 0, hjust=1))
+pc %>%
+  select(where(is.numeric), sesso) %>%
+  pivot_longer(
+    `lt.carapace`:`peso.gonadi`,
+    names_to = 'var',
+    values_to = 'value'
+  ) %>%
+  filter(value < 800) %>% # <- per eliminare outliers
+  ggplot(aes(var, value)) +
+  geom_jitter(aes(col = sesso), alpha = 0.2, size = 2) +
+  scale_y_sqrt() +
+
+  stat_summary(
+    aes(group = sesso),
+    fun = mean,
+    geom = "point",
+    shape = 18,
+    size = 3,
+    col = 'black',
+    alpha = 0.5,
+    position = position_dodge(width = 0.3) # per separare se necessario
+  ) +
+
+  labs(x = '') +
+  facet_grid(~sesso) +
+  theme(
+    legend.position = 'none',
+    axis.text.x = element_text(angle = 90, vjust = 0, hjust = 1)
+  )
 ```
 
 ```{r}
 # add month and year
-pc <- pc %>% 
-    mutate(month=month(data),
-           year=year(data),
-           date=floor_date(data, unit = 'month'))
+pc <- pc %>%
+  mutate(
+    month = month(data),
+    year = year(data),
+    date = floor_date(data, unit = 'month')
+  )
 ```
 
 ```{r}
@@ -95,13 +120,15 @@ pc <- pc %>%
 # change 2007-2009 to 2014-2016 (+7 years)
 # ok 2018-2021
 
-pc <- pc |> 
+pc <- pc |>
   mutate(
     adj_date = case_when(
-      date >= as.Date("2000-01-01") & date <= as.Date("2001-12-31") ~ date + years(11),
-      date >= as.Date("2007-01-01") & date <= as.Date("2009-12-31") ~ date + years(7),
+      date >= as.Date("2000-01-01") & date <= as.Date("2001-12-31") ~ date +
+        years(11),
+      date >= as.Date("2007-01-01") & date <= as.Date("2009-12-31") ~ date +
+        years(7),
       date >= as.Date("2018-01-01") & date <= as.Date("2021-12-31") ~ date,
-      TRUE ~ as.Date(NA)  # or just `date` if you want to keep all dates
+      TRUE ~ as.Date(NA) # or just `date` if you want to keep all dates
     )
   )
 
@@ -110,402 +137,560 @@ pc <- pc |>
 ## Sex ratio
 
 ```{r sex}
-sexratio <- pc %>% 
-  count(adj_date,sesso) %>% 
-  pivot_wider(names_from = sesso,
-              values_from = n) %>% 
-  mutate(ratio=round(M/F,1))
+sexratio <- pc %>%
+  count(adj_date, sesso) %>%
+  pivot_wider(names_from = sesso, values_from = n) %>%
+  mutate(ratio = round(M / F, 1))
 ```
 
 ```{r sex ratio, fig.height=9, fig.width=13}
-sr <- pc %>% 
-    count(sesso,adj_date) %>% 
-    group_by(adj_date) %>% 
-    mutate(perc=n/sum(n)) %>%  
-    complete(sesso, fill = list(perc = 0))
+sr <- pc %>%
+  count(sesso, adj_date) %>%
+  group_by(adj_date) %>%
+  mutate(perc = n / sum(n)) %>%
+  complete(sesso, fill = list(perc = 0))
 
-sr <- sr |> 
-    pivot_wider(id_cols = adj_date,
-    names_from = sesso, 
-    values_from = perc, values_fill = 0) |> 
-        pivot_longer(!adj_date,names_to = 'sesso', 
-        values_to = 'perc')
+sr <- sr |>
+  pivot_wider(
+    id_cols = adj_date,
+    names_from = sesso,
+    values_from = perc,
+    values_fill = 0
+  ) |>
+  pivot_longer(!adj_date, names_to = 'sesso', values_to = 'perc')
 
-sr |> 
-    ggplot(aes(adj_date,perc))+
-    geom_area(aes(fill=sesso), 
-    col='black', linewidth=0.2,
-    alpha=0.6)+
-    scale_y_continuous(labels = scales::percent_format())+
-    labs(x='',y='')+
-    geom_vline(xintercept = as.Date('2013-06-01'), 
-    linetype='dotted')+
-    geom_vline(xintercept = as.Date('2017-06-01'), 
-    linetype='dotted')+
-    scale_x_date(breaks=as.Date(c('2012-01-01',
-    '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-        labels = c('2001','2007','2009','2018','2020'))+
-            theme(legend.position = 'none')
+sr |>
+  ggplot(aes(adj_date, perc)) +
+  geom_area(aes(fill = sesso), col = 'black', linewidth = 0.2, alpha = 0.6) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
 
-sr %>% 
-    ggplot(aes(adj_date,perc,group = sesso))+
-    geom_bar(stat = 'identity', alpha=0.7, aes(fill=sesso))+
-    scale_y_continuous(labels = scales::percent_format())+
-    labs(x='',y='')+
-    geom_vline(xintercept = as.Date('2013-06-01'), 
-    linetype='dotted')+
-    geom_vline(xintercept = as.Date('2017-06-01'), 
-    linetype='dotted')+
-    scale_x_date(breaks=as.Date(c('2012-01-01',
-    '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-        labels = c('2001','2007','2009','2018','2020'))+
-            theme(legend.position = 'none')
+sr %>%
+  ggplot(aes(adj_date, perc, group = sesso)) +
+  geom_bar(stat = 'identity', alpha = 0.7, aes(fill = sesso), width = 31) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+
+ggsave('PhD/sexRatio2020-2021.pdf', width = 13, height = 6)
 ```
 
 ## Mute
 
 ```{r mute, fig.height=9, fig.width=13}
-mute <- pc %>% 
-    filter(muta=='SI') %>% 
-    count(sesso,date) %>% 
-    mutate(perc=n/sum(n)) %>%
+mute <- pc %>%
+  filter(muta == 'SI') %>%
+  count(sesso, date) %>%
+  mutate(perc = n / sum(n)) %>%
   mutate(
     adj_date = case_when(
-      date >= as.Date("2000-01-01") & date <= as.Date("2001-12-31") ~ date + years(11),
-      date >= as.Date("2007-01-01") & date <= as.Date("2009-12-31") ~ date + years(7),
+      date >= as.Date("2000-01-01") & date <= as.Date("2001-12-31") ~ date +
+        years(11),
+      date >= as.Date("2007-01-01") & date <= as.Date("2009-12-31") ~ date +
+        years(7),
       date >= as.Date("2018-01-01") & date <= as.Date("2021-12-31") ~ date,
-      TRUE ~ as.Date(NA)  # or just `date` if you want to keep all dates
+      TRUE ~ as.Date(NA) # or just `date` if you want to keep all dates
     )
   )
 
 mute %>%
-    mutate(perc=round(perc*100,2)) %>% 
-    pivot_wider(id_cols=-n,names_from = sesso,values_from = perc) %>% 
-    kable()
+  mutate(perc = round(perc * 100, 2)) %>%
+  pivot_wider(id_cols = -n, names_from = sesso, values_from = perc) %>%
+  kable()
 
-mute %>% ggplot(aes(adj_date,perc,group = sesso))+
-    geom_bar(stat = 'identity', alpha=0.7, aes(fill=sesso))+
-    scale_y_continuous(labels = scales::percent_format())+
-    labs(x='',y='')+
-    geom_vline(xintercept = as.Date('2017-06-01'),
-    linetype='dotted')+
-    scale_x_date(breaks=as.Date(c('2012-01-01',
-    '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-        labels = c('2001','2007','2009','2018','2020'))+
-            theme(legend.position = 'none')
+mute %>%
+  ggplot(aes(adj_date, perc, group = sesso)) +
+  geom_bar(stat = 'identity', alpha = 0.7, aes(fill = sesso), width = 32) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/moult.pdf', width = 13, height = 6)
 
-mute %>% ggplot(aes(adj_date,perc,group = sesso))+
-    geom_area(alpha=0.7, aes(fill=sesso))+
-    scale_y_continuous(labels = scales::percent_format())+
-    labs(x='',y='')+
-    geom_vline(xintercept = as.Date('2017-06-01'),
-    linetype='dotted')+
-    scale_x_date(breaks=as.Date(c('2012-01-01',
-    '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-        labels = c('2001','2007','2009','2018','2020'))+
-            theme(legend.position = 'none')
+mute %>%
+  ggplot(aes(adj_date, perc, group = sesso)) +
+  geom_area(alpha = 0.7, aes(fill = sesso)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('test.pdf', width = 8, height = 5)
 ```
 
 ## Gonadi
 
 ```{r gonadi, fig.height=8, fig.width=11}
 # corregge i nomi
-pc <- pc %>% mutate(maturità.gonadi=str_trim(maturità.gonadi))
+pc <- pc %>% mutate(maturità.gonadi = str_trim(maturità.gonadi))
 
 # crea una nuova variabile con stadio gonadi: 0, 1
-pc.f <- pc %>% 
-    filter(sesso=='F',
-           !is.na(maturità.gonadi)) %>% 
-    mutate(gonadBin=ifelse(maturità.gonadi=='MATURE','1','0'))
+pc.f <- pc %>%
+  filter(sesso == 'F', !is.na(maturità.gonadi)) %>%
+  mutate(gonadBin = ifelse(maturità.gonadi == 'MATURE', '1', '0'))
 
-pc.f %>% 
-    count(adj_date,gonadBin) %>% 
-    ggplot(aes(x=adj_date,y=n, fill=gonadBin)) +
-    geom_area(alpha=0.7, lwd=1.5) +
-    ggtitle('Gonads') + ylab('numbers')+ xlab('')+
-    scale_fill_manual(values = c('#f78ae0','#f71ae8'))+
-    geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-                theme(legend.position = 'none')
+pc.f %>%
+  count(adj_date, gonadBin) %>%
+  ggplot(aes(x = adj_date, y = n, fill = gonadBin)) +
+  #geom_area(alpha = 0.7, lwd = 1.5) +
+  geom_bar(stat = 'identity', alpha = 0.7, aes(fill = gonadBin), width = 31) +
+  ggtitle('Gonads') +
+  ylab('numbers') +
+  xlab('') +
+  scale_fill_manual(values = c('#f78ae0', '#f71ae8')) +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/gonadBin.pdf', width = 13, height = 6)
 ```
 
 ```{r gonadi2}
-pc.f %>% 
-    count(adj_date,gonadBin) %>% 
-    group_by(adj_date) %>% 
-    mutate(perc=round(n/sum(n)*100,2)) %>% 
-    pivot_wider(id_cols = adj_date, 
-                values_from = perc, 
-                names_from = gonadBin,
-                values_fill = 0) %>% 
-    kable()
+pc.f %>%
+  count(adj_date, gonadBin) %>%
+  group_by(adj_date) %>%
+  mutate(perc = round(n / sum(n) * 100, 2)) %>%
+  pivot_wider(
+    id_cols = adj_date,
+    values_from = perc,
+    names_from = gonadBin,
+    values_fill = 0
+  ) %>%
+  kable()
 ```
 
 ```{r pgonadi, fig.height=9, fig.width=13}
-pc.f %>% 
-    count(adj_date,gonadBin) %>% 
-    group_by(adj_date) %>% 
-    mutate(perc=n/sum(n)) %>% 
-    pivot_wider(id_cols = adj_date,
-                names_from = gonadBin,
-                values_from = perc,
-                values_fill = 0) |> 
-                    pivot_longer(!adj_date,names_to = 'gonadBin', 
-                    values_to = 'perc') |> 
-    ggplot(aes(adj_date,perc,group = gonadBin, fill=gonadBin))+
-    geom_area(alpha=0.9,
-                  col='black', linewidth=0.2)+
-    scale_y_continuous('',labels = scales::percent_format())+
-    scale_fill_manual('',labels=c('Immature','Mature'),
-                      values = c('#f78ae0','#f71ae8'))+
-    labs(x='',y='')+
-        geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(legend.position = 'top')
+pc.f %>%
+  count(adj_date, gonadBin) %>%
+  group_by(adj_date) %>%
+  mutate(perc = n / sum(n)) %>%
+  pivot_wider(
+    id_cols = adj_date,
+    names_from = gonadBin,
+    values_from = perc,
+    values_fill = 0
+  ) |>
+  pivot_longer(!adj_date, names_to = 'gonadBin', values_to = 'perc') |>
+  ggplot(aes(adj_date, perc, group = gonadBin, fill = gonadBin)) +
+  geom_area(alpha = 0.9, col = 'black', linewidth = 0.2) +
+  scale_y_continuous('', labels = scales::percent_format()) +
+  scale_fill_manual(
+    '',
+    labels = c('Immature', 'Mature'),
+    values = c('#f78ae0', '#f71ae8')
+  ) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'top')
 ```
 
 ## Attività maschi
 
 ```{r}
 unique(pc$SA) #!malefici spazi!!!!
-pc <- pc %>% mutate(SA=str_trim(SA))
-pc <- pc %>% mutate(SA=ifelse(SA=='no','NO',SA))
-pc <- pc %>% mutate(SA=ifelse(SA=='',NA,SA))
+pc <- pc %>% mutate(SA = str_trim(SA))
+pc <- pc %>% mutate(SA = ifelse(SA == 'no', 'NO', SA))
+pc <- pc %>% mutate(SA = ifelse(SA == '', NA, SA))
 
-pc.m <- pc %>% 
-    filter(sesso=='M', !is.na(SA)) %>% 
-    group_by(adj_date,SA) %>% 
-    count(adj_date,SA) %>% 
-    group_by(adj_date) %>% 
-    mutate(perc=n/sum(n))
+pc.m <- pc %>%
+  filter(sesso == 'M', !is.na(SA)) %>%
+  group_by(adj_date, SA) %>%
+  count(adj_date, SA) %>%
+  group_by(adj_date) %>%
+  mutate(perc = n / sum(n))
 
 unique(pc.m$SA)
-pc.m %>% 
-    pivot_wider(id_cols = adj_date, 
-                values_from = perc, 
-                names_from = SA) %>% 
-    kable(digits = 2)
+pc.m %>%
+  pivot_wider(id_cols = adj_date, values_from = perc, names_from = SA) %>%
+  kable(digits = 2)
 ```
 
 ```{r}
-pc.m %>% 
-      pivot_wider(id_cols = adj_date,
-                names_from = SA,
-                values_from = perc,
-                values_fill = 0) |> 
-                    pivot_longer(!adj_date,names_to = 'SA', 
-                    values_to = 'perc') |> 
-    ggplot(aes(adj_date,perc, fill=SA))+
-    geom_col()+
-    scale_fill_manual('',labels=c('Immature','Mature'), 
-                      values=c("#A6E6E7","#33C6CA"))+
-    scale_y_continuous('',labels = scales::percent_format())+
-    labs(x='',y='')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2009','2018','2020'))+
-    theme(legend.position = 'top')
+pc.m %>%
+  pivot_wider(
+    id_cols = adj_date,
+    names_from = SA,
+    values_from = perc,
+    values_fill = 0
+  ) |>
+  pivot_longer(!adj_date, names_to = 'SA', values_to = 'perc') |>
+  ggplot(aes(adj_date, perc, fill = SA)) +
+  geom_col(width = 31) +
+  scale_fill_manual(
+    '',
+    labels = c('Immature', 'Mature'),
+    values = c("#A6E6E7", "#33C6CA")
+  ) +
+  scale_y_continuous('', labels = scales::percent_format()) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c('2016-01-01', '2018-01-01', '2020-01-01')),
+    labels = c('2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'top')
+ggsave('PhD/maleImmature.pdf', width = 13, height = 6)
 
-pc.m %>% 
-        pivot_wider(id_cols = adj_date,
-                names_from = SA,
-                values_from = perc,
-                values_fill = 0) |> 
-                    pivot_longer(!adj_date,names_to = 'SA', 
-                    values_to = 'perc') |> 
-    ggplot(aes(adj_date,perc,fill=SA))+
-    geom_area(alpha=0.9,
-                  col='black', linewidth=0.2)+
-    scale_y_continuous('',labels = scales::percent_format())+
-    scale_fill_manual('',labels=c('Immature','Mature'),
-                      values=c("#A6E6E7","#33C6CA"))+
-    labs(x='',y='')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2009','2018','2020'))+
-    theme(legend.position = 'top')
+pc.m %>%
+  pivot_wider(
+    id_cols = adj_date,
+    names_from = SA,
+    values_from = perc,
+    values_fill = 0
+  ) |>
+  pivot_longer(!adj_date, names_to = 'SA', values_to = 'perc') |>
+  ggplot(aes(adj_date, perc, fill = SA)) +
+  geom_area(alpha = 0.9, col = 'black', linewidth = 0.2) +
+  scale_y_continuous('', labels = scales::percent_format()) +
+  scale_fill_manual(
+    '',
+    labels = c('Immature', 'Mature'),
+    values = c("#A6E6E7", "#33C6CA")
+  ) +
+  labs(x = '', y = '') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c('2016-01-01', '2018-01-01', '2020-01-01')),
+    labels = c('2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'top')
 ```
 
 ## Tw/B e Hiw
 
 ```{r}
 # glimpse(pc)
-pc.twb <- pc %>% 
-    group_by(adj_date,sesso) %>% 
-    summarise(TwB=mean(TwB,na.rm=T), .groups = 'drop')
+pc.twb <- pc %>%
+  group_by(adj_date, sesso) %>%
+  summarise(TwB = mean(TwB, na.rm = T), .groups = 'drop') |>
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
+    )
+  ) |>
+  mutate(grp2 = paste0(sesso, grp))
 ```
 
 ```{r fig.height=9, fig.width=13}
-pc.twb %>% 
-    ggplot(aes(adj_date, TwB, col=sesso))+
-    geom_point(size=3) +
-    geom_line(alpha=0.9, lwd=1.3) +
-    labs(y='Tw/B (mean value)', x='', tag = 'A')+
-        geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(legend.position = 'none')
+pc.twb %>%
+  ggplot(aes(adj_date, TwB, col = sesso, group = grp2)) +
+  geom_point(size = 3) +
+  geom_line(alpha = 0.9, lwd = 1.3) +
+  labs(y = 'Tw/B (mean value)', x = '', tag = 'A') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/TwB.pdf', height = 6, width = 13)
 ```
 
 ```{r carapace length, fig.height=9, fig.width=13}
 pc %>%
-  group_by(sesso, adj_date) %>% 
-  get_summary_stats(lt.carapace) %>% 
-  ggplot(aes(adj_date,mean))+
-  geom_line(aes(col=sesso), alpha=0.9, lwd=1.3)+
-  geom_point(aes(col=sesso),size=3)+
-  labs(x='',y='carapace length')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(legend.position = 'none')
+  group_by(sesso, adj_date) %>%
+  get_summary_stats(lt.carapace) %>%
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
+    )
+  ) |>
+  mutate(grp2 = paste0(sesso, grp)) |>
+  ggplot(aes(adj_date, mean, group = grp2)) +
+  geom_line(aes(col = sesso), alpha = 0.9, lwd = 1.3) +
+  geom_point(aes(col = sesso), size = 3) +
+  labs(x = '', y = 'carapace length') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/carapace.pdf', height = 6, width = 13)
+
+mod1 <- lm(lt.carapace ~ as.numeric(adj_date), data = pc)
+summary(mod1)
 ```
 
 ```{r total weight, fig.height=9, fig.width=13}
 pc %>%
-  group_by(sesso, adj_date) %>% 
-  get_summary_stats(peso.tot) %>% 
-  ggplot(aes(adj_date,mean))+
-  geom_line(aes(col=sesso), alpha=0.9, lwd=1.3)+
-  geom_point(aes(col=sesso),size=3)+
-  labs(y='total weight (g)', x='')+
-          geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(legend.position = 'none')
+  group_by(sesso, adj_date) %>%
+  get_summary_stats(peso.tot) %>%
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
+    )
+  ) |>
+  mutate(grp2 = paste0(sesso, grp)) |>
+  ggplot(aes(adj_date, mean, group = grp2)) +
+  geom_line(aes(col = sesso), alpha = 0.9, lwd = 1.3) +
+  geom_point(aes(col = sesso), size = 3) +
+  labs(y = 'total weight (g)', x = '') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/totalweight.pdf', height = 6, width = 13)
 ```
 
-
 ```{r}
-pc.hiw <- pc %>% 
-    group_by(adj_date,sesso) %>% 
-    summarise(Hiw=mean(Hiw,na.rm=T), .groups = 'drop')
+pc.hiw <- pc %>%
+  group_by(adj_date, sesso) %>%
+  summarise(Hiw = mean(Hiw, na.rm = T), .groups = 'drop')
 ```
 
 ```{r fig.height=9, fig.width=13}
-pc.hiw %>% 
-    ggplot(aes(adj_date, Hiw, col=sesso))+
-    geom_point(size=3) +
-    geom_line(alpha=0.9, lwd=1.3) +
-    labs(y='Hiw (mean value)', x='', tag = 'B')+
-        geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(legend.position = 'none')
+pc.hiw %>%
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
+    )
+  ) |>
+  mutate(grp2 = paste0(sesso, grp)) |>
+  ggplot(aes(adj_date, Hiw, col = sesso, group = grp2)) +
+  geom_point(size = 3) +
+  geom_line(alpha = 0.9, lwd = 1.3) +
+  labs(y = 'Hiw (mean value)', x = '', tag = 'B') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(legend.position = 'none')
+ggsave('PhD/Hiw.pdf', height = 6, width = 13)
 ```
 
 ## GSI
 
 ```{r}
-pc.ind <- pc %>% 
-    filter(sesso=='F') %>% 
-    mutate(GSI=peso.gonadi/(peso.tot-peso.gonadi)*100) %>% 
-    group_by(adj_date) %>% 
-    summarise(GSI=mean(GSI, na.rm = T),
-              HIw=mean(Hiw, na.rm = T))
+pc.ind <- pc %>%
+  filter(sesso == 'F') %>%
+  #select(peso.gonadi, peso.tot, date, adj_date) |>
+  mutate(GSI = peso.gonadi / (peso.tot - peso.gonadi) * 100) %>%
+  group_by(adj_date) %>%
+  summarise(GSI = mean(GSI, na.rm = T), HIw = mean(Hiw, na.rm = T)) |>
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
+    )
+  )
 ```
 
 ```{r fig.height=9, fig.width=13}
-pc.ind %>% 
-    ggplot(aes(adj_date,GSI))+
-    geom_point(col='brown',size=4)+
-    geom_line(col='brown',lwd=1.3)+
-    geom_point(aes(adj_date,HIw/2),col='#F98178',size=4)+
-    geom_line(aes(adj_date,HIw/2),col='#F98178',lwd=1.3)+
-    scale_y_continuous(sec.axis = sec_axis(~. /2, name = "HIw")) +
-    labs(x='', tag = 'D') +
-          geom_vline(xintercept = as.Date('2013-06-01'), 
-        linetype='dotted')+
-        geom_vline(xintercept = as.Date('2017-06-01'), 
-        linetype='dotted')+
-        scale_x_date(breaks=as.Date(c('2012-01-01',
-        '2014-01-01','2016-01-01','2018-01-01','2020-01-01')),
-            labels = c('2001','2007','2009','2018','2020'))+
-    theme(
-        axis.title.y.left = element_text(color = "brown"),
-        axis.title.y.right = element_text(color = "#F98178")
-    )
+pc.ind %>%
+  ggplot(aes(adj_date, GSI, group = grp)) +
+  geom_point(col = 'brown', size = 4) +
+  geom_line(col = 'brown', lwd = 1.3) +
+  geom_point(aes(adj_date, HIw / 2), col = '#F98178', size = 3) +
+  geom_line(aes(adj_date, HIw / 2), col = '#F98178', lwd = 1.3) +
+  scale_y_continuous(sec.axis = sec_axis(~ . / 2, name = "HIw")) +
+  labs(x = '', tag = 'D') +
+  geom_vline(xintercept = as.Date('2013-06-01'), linetype = 'dotted') +
+  geom_vline(xintercept = as.Date('2017-06-01'), linetype = 'dotted') +
+  scale_x_date(
+    breaks = as.Date(c(
+      '2012-01-01',
+      '2014-01-01',
+      '2016-01-01',
+      '2018-01-01',
+      '2020-01-01'
+    )),
+    labels = c('2001', '2007', '2009', '2018', '2020')
+  ) +
+  theme(
+    axis.title.y.left = element_text(color = "brown"),
+    axis.title.y.right = element_text(color = "#F98178")
+  )
+ggsave('PhD/GSI.pdf', width = 13, height = 6)
 
-
-pc.ind %>% 
-    ggplot(aes(GSI,HIw))+
-    geom_point(size=3)
+pc.ind %>%
+  ggplot(aes(GSI, HIw)) +
+  geom_point(size = 3)
 ```
 
 ## Confronto con livelli idrometrici
 
 ```{r}
-livello <- read.xlsx(here('input/idrometro/idrometroSSavino2000-2021.xlsx'),
-                     detectDates = T) 
-liv <- livello %>% 
-  rename(date=data, avg=livello.idrometrico)
+livello <- read.xlsx(
+  here('input/idrometro/idrometroSSavino2000-2021.xlsx'),
+  detectDates = T
+)
+liv <- livello %>%
+  rename(date = data, avg = livello.idrometrico)
 
-liv %>% 
-    ggplot(aes(date,avg))+
-    geom_point(size=1,col='#0082FF')+
-    geom_line(col='#0082FF')+
-    labs(x='')
+liv %>%
+  ggplot(aes(date, avg)) +
+  geom_point(size = 1, col = '#0082FF') +
+  geom_line(col = '#0082FF') +
+  labs(x = '')
 ```
 
 ### mute
 
 ```{r fig.height=9, fig.width=13}
 # head(mute)
-mute %>% 
-    ggplot(aes(date,n))+
-    geom_line(aes(col=sesso), lwd=1.3, alpha=0.8)+
-    #geom_point(data=liv,aes(date,(avg+1)*100), col='#0082FF')+
-    #geom_point(aes(col=sesso), size=4)+
-    geom_line(data=liv,aes(date,(avg+1)*50), 
-              col='#0082FF', alpha=0.2, lwd=2)+
-    scale_y_continuous(sec.axis = sec_axis(~. /50-1, 
-                                           name = "Hydrometric level")) +
-    labs(x='') +
-    theme(
-        legend.position = 'none',
-        axis.title.y.right = element_text(color = '#0082FF')
+mute %>%
+  mutate(
+    grp = case_when(
+      adj_date > "2018-01-01" ~ '3',
+      adj_date < "2013-01-01" ~ '1',
+      adj_date > "2013-01-01" & adj_date < "2018-01-01" ~ '2'
     )
+  ) |>
+  mutate(grp2 = paste0(sesso, grp)) |>
+  ggplot(aes(date, n)) +
+  geom_line(aes(col = sesso, group = grp2), lwd = 1.3, alpha = 0.8) +
+  #geom_point(data=liv,aes(date,(avg+1)*100), col='#0082FF')+
+  #geom_point(aes(col=sesso), size=4)+
+  geom_line(
+    data = liv,
+    aes(date, (avg + 1) * 50),
+    col = '#0082FF',
+    alpha = 0.4,
+    lwd = 1
+  ) +
+  scale_y_continuous(
+    sec.axis = sec_axis(~ . / 50 - 1, name = "Hydrometric level")
+  ) +
+  labs(x = '') +
+  theme(
+    legend.position = 'none',
+    axis.title.y.right = element_text(color = '#0082FF')
+  )
+ggsave('PhD/muteLivelli.pdf', width = 13, height = 6)
 ```
 
 ### Femmine mature
 
 ```{r fig.height=9, fig.width=13}
 # head(pc.f)
-pc.f %>% 
-    filter(maturità.gonadi=='MATURE') %>% 
-    count(date,maturità.gonadi) %>% 
-    ggplot(aes(date,n))+
-    geom_line(col='#F19837', lwd=1.3)+
-    geom_line(data=liv,aes(date,(avg+1)*50), 
-              col='#0082FF', alpha=0.2, lwd=2)+
-    scale_y_continuous(sec.axis = sec_axis(~. /50-1, 
-                                           name = "Hydrometric level")) +
-    #geom_point(col='#F19837', size=4)+
-    labs(x='')
+pc.f %>%
+  filter(maturità.gonadi == 'MATURE') %>%
+  count(date, maturità.gonadi) %>%
+  mutate(
+    grp = case_when(
+      date > "2015-01-01" ~ '3',
+      date < "2005-01-01" ~ '1',
+      date > "2005-01-01" & date < "2015-01-01" ~ '2'
+    )
+  ) |>
+  ggplot(aes(date, n)) +
+  geom_line(aes(group = grp), col = '#F19837', lwd = 1.3) +
+  geom_line(
+    data = liv,
+    aes(date, (avg + 1) * 50),
+    col = '#0082FF',
+    alpha = 0.2,
+    lwd = 2
+  ) +
+  scale_y_continuous(
+    sec.axis = sec_axis(~ . / 50 - 1, name = "Hydrometric level")
+  ) +
+  #geom_point(col='#F19837', size=4)+
+  labs(x = '')
+ggsave('PhD/gonadLivelli.pdf', width = 13, height = 6)
 ```
